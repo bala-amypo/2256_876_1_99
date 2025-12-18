@@ -5,5 +5,7 @@ import com.example.demo.entity.Asset;
 
 public interface AssetService{
     public Asset createAsset(Long vendorld,Long ruleld,Asset asset);
-    public List<Asset> getAsset
+    public List<Asset> getAssetsByStatus(String status);
+    public List<Asset> getAllAssets();
+    public getAsset(Long id);
 }
