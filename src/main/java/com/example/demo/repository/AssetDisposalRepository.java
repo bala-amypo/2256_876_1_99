@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.AssetDisposal;
 
 @Repository
-public interface StudentRepository extends JpaRepository<StudentEntity,Integer>{
-
+public interface AssetDisposalRepository extends JpaRepository<AssetDisposal,Long>{
+    List<AssetDisposal> findByApprovedBy(User approvedBy);
 }
