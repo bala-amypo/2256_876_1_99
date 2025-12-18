@@ -19,10 +19,10 @@ public class Role{
         this.name = name;
     }
     
-    public Student(Long id, String name) {
+    public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Student() {
+    public Role() {
     }
 }

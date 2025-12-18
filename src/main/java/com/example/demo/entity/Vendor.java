@@ -41,13 +41,13 @@ public class Vendor{
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
-    public Student(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createAt) {
+    public Vendor(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createAt) {
         this.id = id;
         this.vendorName = vendorName;
         this.contactEmail = contactEmail;
         this.phone = phone;
         this.createAt = createAt;
     }
-    public Student() {
+    public Vendor() {
     }
 }

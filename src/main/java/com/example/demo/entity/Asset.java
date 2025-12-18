@@ -70,7 +70,7 @@ public class Asset{
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
-    public Student(Long id, String assetTag, String assetName, ManyToOne vendor, LocalDate purchaseDate,
+    public Asset(Long id, String assetTag, String assetName, ManyToOne vendor, LocalDate purchaseDate,
             double purchaseCost, ManyToOne depreciationRule, String status, LocalDateTime createAt) {
         this.id = id;
         this.assetTag = assetTag;
@@ -82,6 +82,6 @@ public class Asset{
         this.status = status;
         this.createAt = createAt;
     }
-    public Student() {
+    public Asset() {
     }
 }

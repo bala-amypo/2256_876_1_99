@@ -41,14 +41,14 @@ public class User{
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
     }
-    public Student(Long id, String name, String email, String password, LocalDateTime createAt) {
+    public User(Long id, String name, String email, String password, LocalDateTime createAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.createAt = createAt;
     }
-    public Student() {
+    public User() {
     }
 }
 
