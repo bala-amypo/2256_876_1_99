@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.example.demo.entity.AssetLifecycleEvent;
 
 @Repository
-public interface AssetLifecycleEventRepository extends JpaRepository<StudentEntity,Integer>{
-
+public interface AssetLifecycleEventRepository extends JpaRepository<AssetLifecycleEvent,Long>{
+    List<AssetLifecycleEvent> findByAssetIdOrderByEventDateDesc(Long assetId);
 }
