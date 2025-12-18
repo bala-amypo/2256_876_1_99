@@ -9,7 +9,10 @@ public class AssetController{
     @Autowired
     AssetService ser;
 
-     
+    @PostMapping("/")
+    public Asset createAsset(Long vendorld,Long ruleld,Asset asset){
+        
+    }
 }
 
 
