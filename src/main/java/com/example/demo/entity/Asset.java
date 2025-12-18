@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class Asset{
     @Id
     private Long id;
+    @Column()
     private String assetTag;
     private String assetName;
     private ManyToOne vendor;
