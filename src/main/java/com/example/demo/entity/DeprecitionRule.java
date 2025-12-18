@@ -10,7 +10,7 @@ public class DeprecitionRule{
     private String method;
     private int usefulLifeYears;
     private double salvageValue;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     public Long getId() {
         return id;
     }
@@ -42,19 +42,19 @@ public class DeprecitionRule{
         this.salvageValue = salvageValue;
     }
     public LocalDateTime getCreateAt() {
-        return createAt;
+        return createdAt;
     }
     public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
     public DeprecitionRule(Long id, String ruleName, String method, int usefulLifeYears, double salvageValue,
-            LocalDateTime createAt) {
+            LocalDateTime createdAt) {
         this.id = id;
         this.ruleName = ruleName;
         this.method = method;
         this.usefulLifeYears = usefulLifeYears;
         this.salvageValue = salvageValue;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
     public DeprecitionRule() {
     }

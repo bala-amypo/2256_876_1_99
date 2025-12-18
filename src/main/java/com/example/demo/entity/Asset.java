@@ -15,7 +15,7 @@ public class Asset{
     private double purchaseCost;
     private ManyToOne depreciationRule;
     private String status;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     public Long getId() {
         return id;
     }
@@ -65,13 +65,13 @@ public class Asset{
         this.status = status;
     }
     public LocalDateTime getCreateAt() {
-        return createAt;
+        return createdAt;
     }
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+    public void setCreateAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
     public Asset(Long id, String assetTag, String assetName, ManyToOne vendor, LocalDate purchaseDate,
-            double purchaseCost, ManyToOne depreciationRule, String status, LocalDateTime createAt) {
+            double purchaseCost, ManyToOne depreciationRule, String status, LocalDateTime createdAt) {
         this.id = id;
         this.assetTag = assetTag;
         this.assetName = assetName;
@@ -80,7 +80,7 @@ public class Asset{
         this.purchaseCost = purchaseCost;
         this.depreciationRule = depreciationRule;
         this.status = status;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
     public Asset() {
     }
