@@ -9,7 +9,7 @@ public class AssetController{
     @Autowired
     AssetService ser;
 
-    
+     
 }
 
 
