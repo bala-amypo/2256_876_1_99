@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class DeprecitionRule{
     @Id
     private Long id;
+    @Column(unique=true)
     private String ruleName;
     private String method;
     private int usefulLifeYears;

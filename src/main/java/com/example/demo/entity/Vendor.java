@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class Vendor{
     @Id
     private Long  id;
+    @Column(unique=true)
     private String vendorName;
     private String contactEmail;
     private String phone;
