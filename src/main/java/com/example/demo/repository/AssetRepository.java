@@ -9,5 +9,5 @@ import com.example.demo.entity.Asset;
 public interface AssetRepository extends JpaRepository<Asset,Long>{
     boolean existsByAssetTag(String assetTag );
     List<Asset>findByStatus(String status);
-    List<Vendor>findByVendor(Vendor vendor)
+    List<Vendor>findByVendor(Vendor vendor);
 }
