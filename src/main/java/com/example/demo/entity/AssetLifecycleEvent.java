@@ -5,4 +5,8 @@ import java.time.LocalDateTime;
 import java.time.LocalDate;
 import org.hibernate.mapping.ManyToOne;
 
-public class Asset
+@Entity
+public class AssetLifecycleEvent{
+    @Id
+    
+}
