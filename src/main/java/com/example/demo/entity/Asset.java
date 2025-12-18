@@ -64,10 +64,10 @@ public class Asset{
     public void setStatus(String status) {
         this.status = status;
     }
-    public LocalDateTime getCreateAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreateAt(LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
     public Asset(Long id, String assetTag, String assetName, ManyToOne vendor, LocalDate purchaseDate,

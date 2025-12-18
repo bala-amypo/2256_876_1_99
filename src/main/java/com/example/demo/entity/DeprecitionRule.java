@@ -41,10 +41,10 @@ public class DeprecitionRule{
     public void setSalvageValue(double salvageValue) {
         this.salvageValue = salvageValue;
     }
-    public LocalDateTime getCreateAt() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
-    public void setCreateAt(LocalDateTime createAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
     public DeprecitionRule(Long id, String ruleName, String method, int usefulLifeYears, double salvageValue,

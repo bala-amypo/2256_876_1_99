@@ -10,7 +10,7 @@ public class User{
     private String name;
     private String email;
     private String password;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     public Long getId() {
         return id;
     }
@@ -35,18 +35,18 @@ public class User{
     public void setPassword(String password) {
         this.password = password;
     }
-    public LocalDateTime getCreateAt() {
-        return createAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
-    public User(Long id, String name, String email, String password, LocalDateTime createAt) {
+    public User(Long id, String name, String email, String password, LocalDateTime createdAt) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
     }
     public User() {
     }
