@@ -13,12 +13,15 @@ public class AssetController{
     AssetService ser;
 
     @PostMapping("/{vendorld}/{ruleld}")
+    public Asset createAsset(Asset ass){
+        return ser.
+    }
 
     @GetMapping("/assetlist")
 
     @GetMapping("/status/{status}")
 
-    @Get
+    @GetMapping("/{id}")
 
 }
 
