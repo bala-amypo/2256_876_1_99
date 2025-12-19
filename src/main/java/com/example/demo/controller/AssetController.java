@@ -13,7 +13,7 @@ public class AssetController{
     AssetService ser;
 
     @PostMapping("/{vendorld}/{ruleld}")
-    public Asset createAsset(Asset ass){
+    public Asset createAsset(){
         return ser.
     }
 
