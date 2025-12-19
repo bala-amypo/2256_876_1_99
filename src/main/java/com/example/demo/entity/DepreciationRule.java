@@ -3,15 +3,26 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "depreciation_rules")
 public class DepreciationRule{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
+
+    @Column(unique = true)
     private String ruleName;
+
     private String method;
-    private int usefulLifeYears;
-    private double salvageValue;
+
+    private Integer usefulLifeYears;
+
+    private Double salvageValue;
+
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "depreciationRule")
+    private Set<Asset> assets;
+
     public Long getId() {
         return id;
     }
