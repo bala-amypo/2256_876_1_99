@@ -2,6 +2,8 @@ package com.example.demo.AssetController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.entity.Asset;
+import com.example.demo.service.AssetService;
 
 @RestController
 @RestMapping("/api/assets")
@@ -11,7 +13,6 @@ public class AssetController{
     AssetService ser;
 
     @PostMapping("/")
-    public Asset createAsset(Long vendorld,Long ruleld,Asset asset){
         
     }
 }
