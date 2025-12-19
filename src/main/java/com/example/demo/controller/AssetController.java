@@ -12,9 +12,14 @@ public class AssetController{
     @Autowired
     AssetService ser;
 
-    @PostMapping("/{vendorld}")
-        
-    }
+    @PostMapping("/{vendorld}/{ruleld}")
+
+    @GetMapping("/assetlist")
+
+    @GetMapping("/status/{status}")
+
+    @Get
+
 }
 
 
