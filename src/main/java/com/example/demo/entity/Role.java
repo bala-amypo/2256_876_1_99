@@ -3,10 +3,15 @@ import jakarta.persistence.*;
     
 @Entity
 public class Role{ 
-    @Id  
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
+
+    @Column(unique = true)
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users;
     public Long getId() {
         return id;
     }

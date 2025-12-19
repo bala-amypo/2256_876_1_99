@@ -9,17 +9,20 @@ public class User{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable=false)
     private String name;
 
-    @Column(nullable=false,unique=true)
+    @Column(unique = true)
     private String email;
 
-    @Column(nullable=false)
     private String password;
 
-    @Column(nullable=false)
     private LocalDateTime createdAt;
+
+    @ManyToMany
+    private Set<Role> roles;
+
+    @OneToMany(mappedBy = "approvedBy")
+    private Set<AssetDisposal> approvedDisposals;
 
     public Long getId() {
         return id;
