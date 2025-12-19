@@ -1,5 +1,6 @@
 package com.example.demo.entity;
-import jakarta.persistence.*;    
+import jakarta.persistence.*;   
+import java.util.*; 
     
 @Entity
 @Table(name = "roles")
@@ -13,7 +14,7 @@ public class Role{
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
-    
+
     public Long getId() {
         return id;
     }
