@@ -2,6 +2,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;    
     
 @Entity
+@Table(name = "roles")
 public class Role{ 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,6 +13,7 @@ public class Role{
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+    
     public Long getId() {
         return id;
     }

@@ -7,17 +7,36 @@ import java.time.LocalDate;
 @Entity
 public class Asset{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique=true)
+
+    @Column(unique = true)
     private String assetTag;
+
     private String assetName;
-    
-    private ManyToOne vendor;
+
+    @ManyToOne
+    private Vendor vendor;
+
     private LocalDate purchaseDate;
-    private double purchaseCost;
-    private ManyToOne depreciationRule;
+
+    private Double purchaseCost;
+
+    @ManyToOne
+    private DepreciationRule depreciationRule;
+
+    // ACTIVE / MAINTENANCE / DISPOSED
     private String status;
+
     private LocalDateTime createdAt;
+
+    // Asset → Lifecycle Events (One-to-Many)
+    @OneToMany(mappedBy = "asset")
+    private Set<AssetLifecycleEvent> lifecycleEvents;
+
+    // Asset → Disposal (One-to-One)
+    @OneToOne(mappedBy = "asset")
+    private AssetDisposal disposal;
     public Long getId() {
         return id;
     }
