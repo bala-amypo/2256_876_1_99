@@ -7,14 +7,23 @@ import org.hibernate.mapping.ManyToOne;
 import org.hibernate.mapping.OneToOne;
 
 @Entity
+@Table(name = "asset_lifecycle_events")
 public class AssetLifecycleEvent{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private ManyToOne asset;
+
+    @ManyToOne
+    private Asset asset;
+
     private String eventType;
-    private String eventDiscription;
+
+    private String eventDescription;
+
     private LocalDate eventDate;
+
     private LocalDateTime loggedAt;
+
     public Long getId() {
         return id;
     }
