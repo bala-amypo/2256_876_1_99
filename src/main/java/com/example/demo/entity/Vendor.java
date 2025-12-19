@@ -6,12 +6,21 @@ import java.time.LocalDateTime;
 @Entity
 public class Vendor{
     @Id
-    private Long  id;
-    @Column(unique=true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true)
     private String vendorName;
+
     private String contactEmail;
+
     private String phone;
+
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "vendor")
+    private Set<Asset> assets;
+
     public Long getId() {
         return id;
     }

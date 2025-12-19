@@ -5,6 +5,7 @@ import org.hibernate.mapping.ManyToOne;
 import java.time.LocalDate;
 
 @Entity
+@Table(name = "assets")
 public class Asset{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,18 +26,16 @@ public class Asset{
     @ManyToOne
     private DepreciationRule depreciationRule;
 
-    // ACTIVE / MAINTENANCE / DISPOSED
     private String status;
 
     private LocalDateTime createdAt;
 
-    // Asset → Lifecycle Events (One-to-Many)
     @OneToMany(mappedBy = "asset")
     private Set<AssetLifecycleEvent> lifecycleEvents;
 
-    // Asset → Disposal (One-to-One)
     @OneToOne(mappedBy = "asset")
     private AssetDisposal disposal;
+
     public Long getId() {
         return id;
     }
