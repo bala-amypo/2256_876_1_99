@@ -2,6 +2,9 @@ package com.example.demo.AssetController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import  org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
+
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 
@@ -17,7 +20,7 @@ public class AssetController{
         return ser.
     }
 
-    @GetMapping("/assetlist")
+    @GetMapping()
 
     @GetMapping("/status/{status}")
 
