@@ -17,15 +17,15 @@ public class AssetController{
 
     @PostMapping("/{vendorld}/{ruleld}")
     public ResponseEntity<Asset> createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequsetBody Asset asset ){
-        Asset savedasset= assetservice.createAsset();
-
+        Asset savedasset= assetservice.createAsset(vendorId,ruleId,asset);
+        return new ResponseEntity<>(savedasset,HttpStatus.CREATED);
     }
 
-    @GetMapping()
+    // @GetMapping()
 
-    @GetMapping("/status/{status}")
+    // @GetMapping("/status/{status}")
 
-    @GetMapping("/{id}")
+    // @GetMapping("/{id}")
 
 }
 
