@@ -16,7 +16,7 @@ public class AssetController{
     AssetService assetservice;
 
     @PostMapping("/{vendorld}/{ruleld}")
-    public ResponseEntity<Asset> createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequsetBody Asset asset ){
+    public ResponseEntity<Asset> createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequestBody Asset asset ){
         Asset savedasset= assetservice.createAsset(vendorId,ruleId,asset);
         return new ResponseEntity<>(savedasset,HttpStatus.CREATED);
     }
