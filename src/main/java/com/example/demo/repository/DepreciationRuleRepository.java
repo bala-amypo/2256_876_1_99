@@ -6,6 +6,6 @@ import java.util.*;
 import com.example.demo.entity.DeprecitionRule;
 
 @Repository
-public interface DeprecitionRuleRepository extends JpaRepository<DeprecitionRule,Long>{
+public interface DepreciationRuleRepository extends JpaRepository<DeprecitionRule,Long>{
     List<DeprecitionRule> findByRuleName(String ruleName);
 }
