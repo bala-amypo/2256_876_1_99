@@ -12,7 +12,7 @@ public class AssetController{
     @Autowired
     AssetService ser;
 
-    @PostMapping("/")
+    @PostMapping("/{vendorld}")
         
     }
 }
