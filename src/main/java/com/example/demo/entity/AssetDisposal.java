@@ -7,15 +7,26 @@ import org.hibernate.mapping.ManyToOne;
 import org.hibernate.mapping.OneToOne;
 
 @Entity
+@Table(name = "asset_disposals")
 public class AssetDisposal{
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private OneToOne asset;
+
+    @OneToOne
+    private Asset asset;
+
     private String disposalMethod;
-    private double disposalValue;
+
+    private Double disposalValue;
+
     private LocalDate disposalDate;
-    private ManyToOne approveBy;
+
+    @ManyToOne
+    private User approvedBy;
+
     private LocalDateTime createdAt;
+
     public Long getId() {
         return id;
     }
