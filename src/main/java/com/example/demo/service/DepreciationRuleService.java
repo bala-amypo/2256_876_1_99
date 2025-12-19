@@ -1,8 +1,8 @@
 package com.example.demo.service;
 
 import java.util.*;
-import com.example.demo.entity.DeprecitionRule;
+import com.example.demo.entity.DepreciationRule;
 
 public interface DepreciationRuleService{
-    public DeprecitionRule createRule(DeprecitionRule rule);
+    public DepreciationRule createRule(DepreciationRule rule);
 }

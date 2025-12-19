@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-public class DeprecitionRule{
+public class DepreciationRule{
     @Id
     private Long id;
     @Column(unique=true)
