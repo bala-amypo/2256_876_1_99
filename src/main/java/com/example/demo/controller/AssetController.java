@@ -6,7 +6,7 @@ import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 
 @RestController
-@RestMapping("/api/assets")
+@RequestMapping("/api/assets")
 public class AssetController{
 
     @Autowired
