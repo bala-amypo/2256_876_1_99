@@ -48,8 +48,7 @@ public class DepreciationRule{
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public DeprecitionRule(Long id, String ruleName, String method, int usefulLifeYears, double salvageValue,
-            LocalDateTime createdAt) {
+    public DepreciationRule(Long id, String ruleName, String method, int usefulLifeYears, double salvageValue,LocalDateTime createdAt) {
         this.id = id;
         this.ruleName = ruleName;
         this.method = method;
@@ -57,6 +56,6 @@ public class DepreciationRule{
         this.salvageValue = salvageValue;
         this.createdAt = createdAt;
     }
-    public DeprecitionRule() {
+    public DepreciationRule() {
     }
 }
