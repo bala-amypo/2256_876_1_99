@@ -11,6 +11,7 @@ public class Asset{
     @Column(unique=true)
     private String assetTag;
     private String assetName;
+    
     private ManyToOne vendor;
     private LocalDate purchaseDate;
     private double purchaseCost;
