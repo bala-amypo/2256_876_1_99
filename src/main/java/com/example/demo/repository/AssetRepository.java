@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import com.example.demo.entity.Asset;
+import com.example.demo.entity.Vendor;
 
 @Repository
 public interface AssetRepository extends JpaRepository<Asset,Long>{
