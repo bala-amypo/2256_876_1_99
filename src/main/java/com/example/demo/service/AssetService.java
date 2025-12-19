@@ -7,5 +7,5 @@ public interface AssetService{
     public Asset createAsset(Long vendorId,Long ruleId,Asset asset);
     public List<Asset> getAssetsByStatus(String status);
     public List<Asset> getAllAssets();
-    public getAsset(Long id);
+    // public getAsset(Long id);
 }
