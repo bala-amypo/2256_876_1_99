@@ -1,3 +1,15 @@
+package com.example.demo.service.impl;
+
+import com.example.demo.entity.*;
+import com.example.demo.exception.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+
+import org.springframework.stereotype.Service;
+
+import java.time.*;
+
+
 @Service
 public class AssetDisposalServiceImpl implements AssetDisposalService {
 
