@@ -5,4 +5,5 @@ import com.example.demo.entity.DepreciationRule;
 
 public interface DepreciationRuleService{
      DepreciationRule createRule(DepreciationRule rule);
+     List<DepreciationRule> getAllRules();
 }
