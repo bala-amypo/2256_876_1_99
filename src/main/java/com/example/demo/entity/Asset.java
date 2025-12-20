@@ -1,13 +1,14 @@
 package com.example.demo.entity;
+
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
-//import org.hibernate.mapping.ManyToOne;
 import java.time.LocalDate;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "assets")
-public class Asset{
+public class Asset {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,72 +38,92 @@ public class Asset{
     @OneToOne(mappedBy = "asset")
     private AssetDisposal disposal;
 
+    // getters & setters
+
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public Vendor getVendor() {
+        return vendor;
     }
+
+    public void setVendor(Vendor vendor) {
+        this.vendor = vendor;
+    }
+
+    public DepreciationRule getDepreciationRule() {
+        return depreciationRule;
+    }
+
+    public void setDepreciationRule(DepreciationRule depreciationRule) {
+        this.depreciationRule = depreciationRule;
+    }
+
     public String getAssetTag() {
         return assetTag;
     }
+
     public void setAssetTag(String assetTag) {
         this.assetTag = assetTag;
     }
+
     public String getAssetName() {
         return assetName;
     }
+
     public void setAssetName(String assetName) {
         this.assetName = assetName;
     }
-    public ManyToOne getVendor() {
-        return vendor;
-    }
-    public void setVendor(ManyToOne vendor) {
-        this.vendor = vendor;
-    }
+
     public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
+
     public void setPurchaseDate(LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
-    public double getPurchaseCost() {
+
+    public Double getPurchaseCost() {
         return purchaseCost;
     }
-    public void setPurchaseCost(double purchaseCost) {
+
+    public void setPurchaseCost(Double purchaseCost) {
         this.purchaseCost = purchaseCost;
     }
-    public ManyToOne getDepreciationRule() {
-        return depreciationRule;
-    }
-    public void setDepreciationRule(ManyToOne depreciationRule) {
-        this.depreciationRule = depreciationRule;
-    }
+
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public Asset(Long id, String assetTag, String assetName, ManyToOne vendor, LocalDate purchaseDate,
-            double purchaseCost, ManyToOne depreciationRule, String status, LocalDateTime createdAt) {
-        this.id = id;
+
+    // constructors
+
+    public Asset() {
+    }
+
+    public Asset(String assetTag, String assetName, Vendor vendor,
+                 LocalDate purchaseDate, Double purchaseCost,
+                 DepreciationRule depreciationRule) {
+
         this.assetTag = assetTag;
         this.assetName = assetName;
         this.vendor = vendor;
         this.purchaseDate = purchaseDate;
         this.purchaseCost = purchaseCost;
         this.depreciationRule = depreciationRule;
-        this.status = status;
-        this.createdAt = createdAt;
-    }
-    public Asset() {
+        this.status = "ACTIVE";
+        this.createdAt = LocalDateTime.now();
     }
 }
