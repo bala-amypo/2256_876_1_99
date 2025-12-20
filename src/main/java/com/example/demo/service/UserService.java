@@ -4,8 +4,8 @@ import java.util.*;
 import com.example.demo.entity.User;
 
 public interface UserService{
-    public User registerUser(User user);
-    public User findByEmail(String email);
-    public User findById(Long id);
+     User registerUser(User user);
+     User findByEmail(String email);
+     User findById(Long id);
 
 }

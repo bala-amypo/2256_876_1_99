@@ -4,5 +4,5 @@ import java.util.*;
 import com.example.demo.entity.DepreciationRule;
 
 public interface DepreciationRuleService{
-    public DepreciationRule createRule(DepreciationRule rule);
+     DepreciationRule createRule(DepreciationRule rule);
 }
