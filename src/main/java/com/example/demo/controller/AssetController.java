@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
@@ -17,6 +17,7 @@ public class AssetController {
     }
 
     @PostMapping("/{vendorId}/{ruleId}")
+    @ResponseStatus(HttpStatus.CREATED)
     public Asset createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequestBody Asset asset) {
         return assetService.createAsset(vendorId, ruleId, asset);
     }

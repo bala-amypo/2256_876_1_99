@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.Vendor;
 import com.example.demo.service.VendorService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
@@ -17,6 +17,7 @@ public class VendorController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Vendor createVendor(@RequestBody Vendor vendor) {
         return vendorService.createVendor(vendor);
     }

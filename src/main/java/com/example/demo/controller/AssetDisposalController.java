@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.AssetDisposal;
 import com.example.demo.service.AssetDisposalService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/disposals")
@@ -15,6 +16,7 @@ public class AssetDisposalController {
     }
 
     @PostMapping("/request/{assetId}")
+    @ResponseStatus(HttpStatus.CREATED)
     public AssetDisposal requestDisposal(@PathVariable Long assetId,@RequestBody AssetDisposal disposal) {
         return disposalService.requestDisposal(assetId, disposal);
     }

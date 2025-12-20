@@ -3,7 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.entity.DepreciationRule;
 import com.example.demo.service.DepreciationRuleService;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.http.HttpStatus;
 import java.util.List;
 
 @RestController
@@ -17,6 +17,7 @@ public class DepreciationRuleController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public DepreciationRule createRule(@RequestBody DepreciationRule rule) {
         return ruleService.createRule(rule);
     }
