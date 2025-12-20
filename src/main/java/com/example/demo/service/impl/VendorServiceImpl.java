@@ -1,3 +1,12 @@
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+
+import org.springframework.stereotype.Service;
+
+import java.time.*;
+import java.util.*;
+
 @Service
 public class VendorServiceImpl implements VendorService {
 
@@ -17,7 +26,7 @@ public class VendorServiceImpl implements VendorService {
         if (!vendor.getContactEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             throw new IllegalArgumentException("Invalid email format");
         }
-        
+
         vendor.setCreatedAt(LocalDateTime.now());
         return vendorRepository.save(vendor);
     }
