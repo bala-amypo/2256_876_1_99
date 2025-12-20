@@ -33,6 +33,6 @@ public class AssetController {
 
     @GetMapping("/{id}")
     public Asset getAsset(@PathVariable Long id) {
-        return assetService.getAssetById(id);
+        return assetService.getAsset(id);
     }
 }
