@@ -34,4 +34,10 @@ public class DepreciationRuleServiceImpl implements DepreciationRuleService {
         rule.setCreatedAt(LocalDateTime.now());
         return ruleRepository.save(rule);
     }
+
+    @Override
+        public List<DepreciationRule> getAllRules() {
+        return depreciationRuleRepository.findAll();
+    }
+
 }

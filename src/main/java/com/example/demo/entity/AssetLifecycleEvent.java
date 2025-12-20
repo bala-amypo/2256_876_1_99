@@ -73,4 +73,9 @@ public class AssetLifecycleEvent {
     public LocalDateTime getLoggedAt() {
         return loggedAt;
     }
+
+    public void setLoggedAt(LocalDateTime loggedAt) {
+        this.loggedAt = loggedAt;
+    }
+
 }

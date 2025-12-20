@@ -59,7 +59,7 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public Asset getAssetById(Long id) {
+    public Asset getAsset(Long id) {
         return assetRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
     }
 }
