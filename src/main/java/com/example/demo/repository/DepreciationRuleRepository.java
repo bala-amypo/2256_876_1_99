@@ -7,5 +7,5 @@ import com.example.demo.entity.DepreciationRule;
 
 @Repository
 public interface DepreciationRuleRepository extends JpaRepository<DepreciationRule,Long>{
-    List<DepreciationRule> findByRuleName(String ruleName);
+    Optional<DepreciationRule> findByRuleName(String ruleName);
 }
