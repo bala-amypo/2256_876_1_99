@@ -7,5 +7,5 @@ import com.example.demo.entity.Vendor;
 
 @Repository
 public interface VendorRepository extends JpaRepository<Vendor,Long>{
-    List<Vendor> findByVendorName(String vendorName);
+    Optional<Vendor> findByVendorName(String vendorName);
 }
