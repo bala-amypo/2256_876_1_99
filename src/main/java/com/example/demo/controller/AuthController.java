@@ -1,10 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.AuthRequest;
+import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.util.JwtUtil;
-import com.example.demo.dto.AuthRequest;
-import com.example.demo.dto.AuthResponse;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +28,7 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    // POST /auth/register
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.registerUser(user);
@@ -54,6 +55,11 @@ public class AuthController {
                 roles
         );
 
-        return new AuthResponse(token, user.getEmail(), roles);
+        return new AuthResponse(
+                token,
+                user.getId(),
+                user.getEmail(),
+                roles
+        );
     }
 }
