@@ -14,8 +14,7 @@ public class AssetLifecycleEventServiceImpl implements AssetLifecycleEventServic
     private final AssetLifecycleEventRepository eventRepository;
     private final AssetRepository assetRepository;
 
-    public AssetLifecycleEventServiceImpl(AssetLifecycleEventRepository eventRepository,
-                                          AssetRepository assetRepository) {
+    public AssetLifecycleEventServiceImpl(AssetLifecycleEventRepository eventRepository,AssetRepository assetRepository) {
         this.eventRepository = eventRepository;
         this.assetRepository = assetRepository;
     }
