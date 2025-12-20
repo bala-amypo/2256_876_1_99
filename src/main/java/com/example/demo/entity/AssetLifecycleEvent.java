@@ -23,13 +23,10 @@ public class AssetLifecycleEvent {
 
     private LocalDateTime loggedAt;
 
-    // No-arg constructor
     public AssetLifecycleEvent() {
     }
 
-    // Parameterized constructor
-    public AssetLifecycleEvent(Asset asset, String eventType,
-                               String eventDescription, LocalDate eventDate) {
+    public AssetLifecycleEvent(Asset asset, String eventType,String eventDescription, LocalDate eventDate) {
         this.asset = asset;
         this.eventType = eventType;
         this.eventDescription = eventDescription;
@@ -37,7 +34,6 @@ public class AssetLifecycleEvent {
         this.loggedAt = LocalDateTime.now();
     }
 
-    // Getters & Setters
     public Long getId() {
         return id;
     }

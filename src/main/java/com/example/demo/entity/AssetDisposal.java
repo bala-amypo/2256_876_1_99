@@ -26,14 +26,10 @@ public class AssetDisposal {
 
     private LocalDateTime createdAt;
 
-    // No-arg constructor
     public AssetDisposal() {
     }
 
-    // Parameterized constructor
-    public AssetDisposal(Asset asset, String disposalMethod,
-                         Double disposalValue, LocalDate disposalDate,
-                         User approvedBy) {
+    public AssetDisposal(Asset asset, String disposalMethod,Double disposalValue, LocalDate disposalDate,User approvedBy) {
 
         this.asset = asset;
         this.disposalMethod = disposalMethod;
@@ -43,7 +39,6 @@ public class AssetDisposal {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getters & Setters
     public Long getId() {
         return id;
     }

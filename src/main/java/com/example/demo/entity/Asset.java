@@ -38,7 +38,6 @@ public class Asset {
     @OneToOne(mappedBy = "asset")
     private AssetDisposal disposal;
 
-    // getters & setters
 
     public Long getId() {
         return id;
@@ -108,7 +107,6 @@ public class Asset {
         this.createdAt = createdAt;
     }
 
-    // constructors
 
     public Asset() {
     }
