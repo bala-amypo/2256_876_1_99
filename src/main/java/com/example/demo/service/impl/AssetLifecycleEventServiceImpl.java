@@ -22,8 +22,7 @@ public class AssetLifecycleEventServiceImpl implements AssetLifecycleEventServic
     @Override
     public AssetLifecycleEvent logEvent(Long assetId, AssetLifecycleEvent event) {
 
-        Asset asset = assetRepository.findById(assetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
 
         if (event.getEventType() == null || event.getEventDescription().isBlank()) {
             throw new IllegalArgumentException("Event details required");
