@@ -46,6 +46,17 @@ public class JwtUtil {
         final String tokenEmail = extractAllClaims(token).get("email", String.class);
         return (tokenEmail.equals(email) && !isTokenExpired(token));
     }
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                .setSigningKey(getSignKey())
+                .build()
+                .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     private boolean isTokenExpired(String token) {
         return extractAllClaims(token).getExpiration().before(new Date());
