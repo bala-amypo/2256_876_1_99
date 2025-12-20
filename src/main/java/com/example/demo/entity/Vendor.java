@@ -24,11 +24,9 @@ public class Vendor {
     @OneToMany(mappedBy = "vendor")
     private Set<Asset> assets;
 
-    // No-arg constructor
     public Vendor() {
     }
 
-    // Parameterized constructor
     public Vendor(String vendorName, String contactEmail, String phone) {
         this.vendorName = vendorName;
         this.contactEmail = contactEmail;
@@ -36,7 +34,6 @@ public class Vendor {
         this.createdAt = LocalDateTime.now();
     }
 
-    // Getters & Setters
     public Long getId() {
         return id;
     }
