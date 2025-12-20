@@ -59,6 +59,12 @@ public class User{
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+
+
 
     public User(Long id, String name, String email, String password, LocalDateTime createdAt) {
         this.id = id;
