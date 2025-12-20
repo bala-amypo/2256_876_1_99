@@ -1,32 +1,38 @@
-package com.example.demo.AssetController;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
-import org.springframework.http.HttpStatus;
+package com.example.demo.controller;
 
 import com.example.demo.entity.Asset;
 import com.example.demo.service.AssetService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/assets")
-public class AssetController{
+public class AssetController {
 
-    @Autowired
-    AssetService assetservice;
+    private final AssetService assetService;
 
-    @PostMapping("/{vendorld}/{ruleld}")
-    public ResponseEntity<Asset> createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequestBody Asset asset ){
-        Asset savedasset= assetservice.createAsset(vendorId,ruleId,asset);
-        return new ResponseEntity<>(savedasset,HttpStatus.CREATED);
+    public AssetController(AssetService assetService) {
+        this.assetService = assetService;
     }
 
-    // @GetMapping()
+    @PostMapping("/{vendorId}/{ruleId}")
+    public Asset createAsset(@PathVariable Long vendorId,@PathVariable Long ruleId,@RequestBody Asset asset) {
+        return assetService.createAsset(vendorId, ruleId, asset);
+    }
 
-    // @GetMapping("/status/{status}")
+    @GetMapping
+    public List<Asset> getAllAssets() {
+        return assetService.getAllAssets();
+    }
 
-    // @GetMapping("/{id}")
+    @GetMapping("/status/{status}")
+    public List<Asset> getByStatus(@PathVariable String status) {
+        return assetService.getAssetsByStatus(status);
+    }
 
+    @GetMapping("/{id}")
+    public Asset getAsset(@PathVariable Long id) {
+        return assetService.getAssetById(id);
+    }
 }
-
-
