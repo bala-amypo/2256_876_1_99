@@ -4,11 +4,12 @@ import com.example.demo.entity.*;
 import com.example.demo.exception.*;
 import com.example.demo.repository.*;
 import com.example.demo.service.*;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.time.*;
-import java.util.*;
 
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -17,7 +18,9 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository userRepository,RoleRepository roleRepository,PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
+                           PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
@@ -33,7 +36,8 @@ public class UserServiceImpl implements UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
 
-        Role role = roleRepository.findByName("USER").orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+        Role role = roleRepository.findByName("USER")
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
 
         user.setRoles(Set.of(role));
         return userRepository.save(user);
