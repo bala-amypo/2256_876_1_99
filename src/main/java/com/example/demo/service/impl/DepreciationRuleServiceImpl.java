@@ -1,12 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.DepreciationRule;
-import com.example.demo.repository.DepreciationRuleRepository;
-import com.example.demo.service.DepreciationRuleService;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
+
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
 @Service
 public class DepreciationRuleServiceImpl implements DepreciationRuleService {
@@ -28,8 +29,7 @@ public class DepreciationRuleServiceImpl implements DepreciationRuleService {
             throw new IllegalArgumentException("salvageValue must be >= 0");
         }
 
-        if (!rule.getMethod().equals("STRAIGHT_LINE")
-                && !rule.getMethod().equals("DECLINING_BALANCE")) {
+        if (!rule.getMethod().equals("STRAIGHT_LINE") &&!rule.getMethod().equals("DECLINING_BALANCE")) {
             throw new IllegalArgumentException("Invalid depreciation method");
         }
 
@@ -39,21 +39,6 @@ public class DepreciationRuleServiceImpl implements DepreciationRuleService {
 
     @Override
     public List<DepreciationRule> getAllRules() {
-
-        List<DepreciationRule> rules = depreciationRuleRepository.findAll();
-
-        // DEFAULT rule for empty DB (important for tests)
-        if (rules.isEmpty()) {
-            DepreciationRule defaultRule = new DepreciationRule();
-            defaultRule.setMethod("STRAIGHT_LINE");
-            defaultRule.setUsefulLifeYears(5);
-            defaultRule.setSalvageValue(0.0);
-            defaultRule.setCreatedAt(LocalDateTime.now());
-
-            depreciationRuleRepository.save(defaultRule);
-            rules = List.of(defaultRule);
-        }
-
-        return rules;
+        return depreciationRuleRepository.findAll();
     }
 }

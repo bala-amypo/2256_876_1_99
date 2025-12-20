@@ -1,12 +1,11 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.entity.Vendor;
-import com.example.demo.repository.VendorRepository;
-import com.example.demo.service.VendorService;
+import com.example.demo.entity.*;
+import com.example.demo.repository.*;
+import com.example.demo.service.*;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
 @Service
 public class VendorServiceImpl implements VendorService {
@@ -20,12 +19,10 @@ public class VendorServiceImpl implements VendorService {
     @Override
     public Vendor createVendor(Vendor vendor) {
 
-        // Vendor name unique check
         if (!vendorRepository.findByVendorName(vendor.getVendorName()).isEmpty()) {
             throw new IllegalArgumentException("Vendor name already exists");
         }
 
-        // Email validation
         if (!vendor.getContactEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             throw new IllegalArgumentException("Invalid email format");
         }
@@ -36,21 +33,6 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public List<Vendor> getAllVendors() {
-
-        List<Vendor> vendors = vendorRepository.findAll();
-
-        // DEFAULT vendor for empty DB (important for tests)
-        if (vendors.isEmpty()) {
-            Vendor defaultVendor = new Vendor();
-            defaultVendor.setVendorName("Default Vendor");
-            defaultVendor.setContactEmail("vendor@test.com");
-            defaultVendor.setPhone("9999999999");
-            defaultVendor.setCreatedAt(LocalDateTime.now());
-
-            vendorRepository.save(defaultVendor);
-            vendors = List.of(defaultVendor);
-        }
-
-        return vendors;
+        return vendorRepository.findAll();
     }
 }
