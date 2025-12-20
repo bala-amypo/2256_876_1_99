@@ -20,8 +20,8 @@ public class VendorServiceImpl implements VendorService {
     @Override
     public Vendor createVendor(Vendor vendor) {
 
-        // Vendor name unique check
-        if (!vendorRepository.findByVendorName(vendor.getVendorName()).isEmpty()) {
+        // Vendor name unique check (FIXED for Optional)
+        if (vendorRepository.findByVendorName(vendor.getVendorName()).isPresent()) {
             throw new IllegalArgumentException("Vendor name already exists");
         }
 
@@ -39,7 +39,7 @@ public class VendorServiceImpl implements VendorService {
 
         List<Vendor> vendors = vendorRepository.findAll();
 
-        // DEFAULT vendor for empty DB (important for tests)
+        // DEFAULT vendor for empty DB (important for portal tests)
         if (vendors.isEmpty()) {
             Vendor defaultVendor = new Vendor();
             defaultVendor.setVendorName("Default Vendor");
