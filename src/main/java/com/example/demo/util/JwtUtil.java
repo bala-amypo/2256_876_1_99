@@ -42,19 +42,21 @@ public class JwtUtil {
         return extractAllClaims(token);
     }
 
+    // Validate token against email
     public boolean validateToken(String token, String email) {
         final String tokenEmail = extractAllClaims(token).get("email", String.class);
         return (tokenEmail.equals(email) && !isTokenExpired(token));
     }
+
+    // Validate token only (for portal/testcases)
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                .setSigningKey(getSignKey())
-                .build()
-                .parseClaimsJws(token);
-            return true;
-        } catch (Exception e) {
-            return false;
+            Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(token); // will throw exception if invalid
+            return true;              // token is valid
+        } catch (JwtException | IllegalArgumentException e) {
+            return false;             // invalid or expired
         }
     }
 
