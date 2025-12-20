@@ -18,8 +18,7 @@ public class DepreciationRuleServiceImpl implements DepreciationRuleService {
             throw new IllegalArgumentException("Salvage value cannot be negative");
         }
 
-        if (!rule.getMethod().equals("STRAIGHT_LINE")
-                && !rule.getMethod().equals("DECLINING_BALANCE")) {
+        if (!rule.getMethod().equals("STRAIGHT_LINE") && !rule.getMethod().equals("DECLINING_BALANCE")) {
             throw new IllegalArgumentException("Invalid depreciation method");
         }
 

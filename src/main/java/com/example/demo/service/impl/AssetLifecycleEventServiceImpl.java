@@ -32,9 +32,7 @@ public class AssetLifecycleEventServiceImpl implements AssetLifecycleEventServic
 
     @Override
     public List<AssetLifecycleEvent> getEventsForAsset(Long assetId) {
-        assetRepository.findById(assetId)
-                .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
-
+        assetRepository.findById(assetId).orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
         return eventRepository.findByAssetIdOrderByEventDateDesc(assetId);
     }
 }
