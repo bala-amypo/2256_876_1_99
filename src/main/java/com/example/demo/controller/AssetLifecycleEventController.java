@@ -17,12 +17,12 @@ public class AssetLifecycleEventController {
     }
 
     @PostMapping("/{assetId}")
-    public AssetLifecycleEvent addEvent(@PathVariable Long assetId,@RequestBody AssetLifecycleEvent event) {
-        return eventService.addEvent(assetId, event);
+    public AssetLifecycleEvent logEvent(@PathVariable Long assetId,@RequestBody AssetLifecycleEvent event) {
+        return eventService.logEvent(assetId, event);
     }
 
     @GetMapping("/asset/{assetId}")
-    public List<AssetLifecycleEvent> getEvents(@PathVariable Long assetId) {
-        return eventService.getEventsByAsset(assetId);
+    public List<AssetLifecycleEvent> getEventsForAsset(@PathVariable Long assetId) {
+        return eventService.getEventsForAsset(assetId);
     }
 }
