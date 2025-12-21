@@ -9,6 +9,11 @@ public class AuthResponse {
     private String email;
     private Set<String> roles;
 
+    // Required by Jackson / tests
+    public AuthResponse() {
+    }
+
+    // Used by AuthController
     public AuthResponse(String token, Long userId, String email, Set<String> roles) {
         this.token = token;
         this.userId = userId;
@@ -16,20 +21,47 @@ public class AuthResponse {
         this.roles = roles;
     }
 
+
     public String getToken() {
         return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Long getUserId() {
         return userId;
     }
 
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Set<String> getRoles() {
         return roles;
     }
-}
 
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
+    }
+
+    // Helpful for test logging
+    @Override
+    public String toString() {
+        return "AuthResponse{" +
+                "token='" + token + '\'' +
+                ", userId=" + userId +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
+}
