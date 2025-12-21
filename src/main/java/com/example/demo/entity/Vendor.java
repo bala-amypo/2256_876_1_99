@@ -26,16 +26,6 @@ public class Vendor {
     @OneToMany(mappedBy = "vendor")
     private Set<Asset> assets;
 
-    public Vendor() {
-    }
-
-    public Vendor(String vendorName, String contactEmail, String phone,) {
-        this.vendorName = vendorName;
-        this.contactEmail = contactEmail;
-        this.phone = phone;
-        this.createdAt = LocalDateTime.now();
-    }
-
     public Long getId() {
         return id;
     }
@@ -71,5 +61,17 @@ public class Vendor {
     }
     public void setAssets(Set<Asset> assets) {
         this.assets = assets;
+    }
+
+    public Create(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createdAt,
+            Set<Asset> assets) {
+        this.id = id;
+        this.vendorName = vendorName;
+        this.contactEmail = contactEmail;
+        this.phone = phone;
+        this.createdAt = createdAt;
+        this.assets = assets;
+    }
+    public Create() {
     }
 }
