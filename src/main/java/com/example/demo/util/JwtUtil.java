@@ -1,17 +1,23 @@
 package com.example.demo.util;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.stereotype.Component;
 
+import javax.crypto.SecretKey;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.Date;
 
 @Component
 public class JwtUtil {
 
-    private final String secret = "mySecretKey12345"; // portal-safe example
-    private final long expirationMs = 3600000; // 1 hour
+    // 🔐 MUST be at least 256 bits (32+ chars)
+    private static final String SECRET =
+            "ThisIsASecure256BitJwtSecretKeyForDemoApplication";
+
+    private static final long expirationMs = 3600000; // 1 hour
+
+    // Generate secure key once
+    private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // Generate token
     public String generateToken(String email, Long userId, Set<String> roles) {
@@ -25,14 +31,15 @@ public class JwtUtil {
                 .setSubject(email)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
-                .signWith(SignatureAlgorithm.HS256, secret)
+                .signWith(key, SignatureAlgorithm.HS256) // ✅ CORRECT & SECURE
                 .compact();
     }
 
     // Extract all claims
     public Claims extractAllClaims(String token) throws ExpiredJwtException {
-        return Jwts.parser()
-                .setSigningKey(secret)
+        return Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -51,12 +58,13 @@ public class JwtUtil {
     // Validate token only (for portal/testcases)
     public boolean validateToken(String token) {
         try {
-            Jwts.parser()
-                .setSigningKey(secret)
-                .parseClaimsJws(token); // will throw exception if invalid
-            return true;              // token is valid
+            Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
         } catch (JwtException | IllegalArgumentException e) {
-            return false;             // invalid or expired
+            return false;
         }
     }
 
@@ -74,6 +82,14 @@ public class JwtUtil {
 
     @SuppressWarnings("unchecked")
     public Set<String> extractRoles(String token) {
-        return new HashSet<>((List<String>) extractAllClaims(token).get("roles"));
+        Object roles = extractAllClaims(token).get("roles");
+        if (roles instanceof Collection<?>) {
+            Set<String> roleSet = new HashSet<>();
+            for (Object r : (Collection<?>) roles) {
+                roleSet.add(String.valueOf(r));
+            }
+            return roleSet;
+        }
+        return Collections.emptySet();
     }
 }
