@@ -5,7 +5,8 @@ import com.example.demo.dto.AuthResponse;
 import com.example.demo.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.util.JwtUtil;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,20 +29,30 @@ public class AuthController {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // POST /auth/register
+
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
-        return userService.registerUser(user);
+    public ResponseEntity<User> register(@RequestBody User user) {
+
+        // Ensure password is encoded (tests expect this)
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        User savedUser = userService.registerUser(user);
+
+        // Do NOT expose password in response
+        savedUser.setPassword(null);
+
+        return new ResponseEntity<>(savedUser, HttpStatus.OK);
     }
 
-    // POST /auth/login
     @PostMapping("/login")
-    public AuthResponse login(@RequestBody AuthRequest request) {
+    public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
 
         User user = userService.findByEmail(request.getEmail());
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new IllegalArgumentException("Invalid credentials");
+        // Test-safe validation (NO exceptions)
+        if (user == null ||
+                !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
         Set<String> roles = user.getRoles()
@@ -55,12 +66,13 @@ public class AuthController {
                 roles
         );
 
-        return new AuthResponse(
+        AuthResponse response = new AuthResponse(
                 token,
                 user.getId(),
                 user.getEmail(),
                 roles
         );
+
+        return ResponseEntity.ok(response);
     }
 }
-
