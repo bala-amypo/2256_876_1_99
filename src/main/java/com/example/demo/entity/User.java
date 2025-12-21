@@ -21,7 +21,7 @@ public class User{
     private LocalDateTime createdAt;
 
     @ManyToMany
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "approvedBy")
     private Set<AssetDisposal> approvedDisposals;
