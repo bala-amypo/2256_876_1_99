@@ -63,7 +63,7 @@ public class Vendor {
         this.assets = assets;
     }
 
-    public Create(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createdAt,
+    public Vendor(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createdAt,
             Set<Asset> assets) {
         this.id = id;
         this.vendorName = vendorName;
@@ -72,6 +72,6 @@ public class Vendor {
         this.createdAt = createdAt;
         this.assets = assets;
     }
-    public Create() {
+    public Vendor() {
     }
 }
