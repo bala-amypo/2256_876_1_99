@@ -6,6 +6,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "vendors")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public class Vendor {
 
     @Id
