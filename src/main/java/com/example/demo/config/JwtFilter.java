@@ -1,61 +1,58 @@
-package com.example.demo.filter;
+// package com.example.demo.filter;
 
-import com.example.demo.service.impl.CustomUserDetailsService;
-import com.example.demo.util.JwtUtil;
+// import com.example.demo.service.impl.CustomUserDetailsService;
+// import com.example.demo.util.JwtUtil;
+// import jakarta.servlet.FilterChain;
+// import jakarta.servlet.ServletException;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
+// import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+// import org.springframework.security.core.context.SecurityContextHolder;
+// import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+// import org.springframework.stereotype.Component;
+// import org.springframework.web.filter.OncePerRequestFilter;
+// import java.io.IOException;
 
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+// @Component
+// public class JwtFilter extends OncePerRequestFilter {
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
-import org.springframework.web.filter.OncePerRequestFilter;
+    // private final JwtUtil jwtUtil;
+    // private final CustomUserDetailsService userDetailsService;
 
-import java.io.IOException;
+    // public JwtFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
+    //     this.jwtUtil = jwtUtil;
+    //     this.userDetailsService = userDetailsService;
+    // }
 
-@Component
-public class JwtFilter extends OncePerRequestFilter {
+    // @Override
+    // protected void doFilterInternal(HttpServletRequest request,
+    //                                 HttpServletResponse response,
+    //                                 FilterChain filterChain) throws ServletException, IOException {
 
-    private final JwtUtil jwtUtil;
-    private final CustomUserDetailsService userDetailsService;
+    //     final String authHeader = request.getHeader("Authorization");
 
-    public JwtFilter(JwtUtil jwtUtil, CustomUserDetailsService userDetailsService) {
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
+    //     String email = null;
+    //     String token = null;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+    //     if (authHeader != null && authHeader.startsWith("Bearer ")) {
+    //         token = authHeader.substring(7);
+    //         try {
+    //             email = jwtUtil.extractEmail(token);
+    //         } catch (Exception e) {
+    //             // Invalid token, ignore
+    //         }
+    //     }
 
-        final String authHeader = request.getHeader("Authorization");
+    //     if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+    //         var userDetails = userDetailsService.loadUserByUsername(email);
+    //         if (jwtUtil.validateToken(token, userDetails.getUsername())) {
+    //             UsernamePasswordAuthenticationToken authToken =
+    //                     new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+    //             authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+    //             SecurityContextHolder.getContext().setAuthentication(authToken);
+    //         }
+    //     }
 
-        String email = null;
-        String token = null;
-
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            token = authHeader.substring(7);
-            try {
-                email = jwtUtil.extractEmail(token);
-            } catch (Exception e) {
-                // Invalid token, ignore
-            }
-        }
-
-        if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            var userDetails = userDetailsService.loadUserByUsername(email);
-            if (jwtUtil.validateToken(token, userDetails.getUsername())) {
-                UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-                SecurityContextHolder.getContext().setAuthentication(authToken);
-            }
-        }
-
-        filterChain.doFilter(request, response);
-    }
-}
+    //     filterChain.doFilter(request, response);
+    // }
+// }
