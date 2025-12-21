@@ -2,28 +2,29 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.DepreciationRule;
 import com.example.demo.service.DepreciationRuleService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/rules")
 public class DepreciationRuleController {
+    private final DepreciationRuleService depreciationRuleService;
 
-    private final DepreciationRuleService ruleService;
-
-    public DepreciationRuleController(DepreciationRuleService ruleService) {
-        this.ruleService = ruleService;
+    public DepreciationRuleController(DepreciationRuleService depreciationRuleService) {
+        this.depreciationRuleService = depreciationRuleService;
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public DepreciationRule createRule(@RequestBody DepreciationRule rule) {
-        return ruleService.createRule(rule);
+    public ResponseEntity<DepreciationRule> createRule(@RequestBody DepreciationRule rule) {
+        DepreciationRule createdRule = depreciationRuleService.createRule(rule);
+        return ResponseEntity.ok(createdRule);
     }
 
     @GetMapping
-    public List<DepreciationRule> getAllRules() {
-        return ruleService.getAllRules();
+    public ResponseEntity<List<DepreciationRule>> getAllRules() {
+        List<DepreciationRule> rules = depreciationRuleService.getAllRules();
+        return ResponseEntity.ok(rules);
     }
 }

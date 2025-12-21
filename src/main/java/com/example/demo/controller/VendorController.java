@@ -2,14 +2,14 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Vendor;
 import com.example.demo.service.VendorService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/vendors")
 public class VendorController {
-
     private final VendorService vendorService;
 
     public VendorController(VendorService vendorService) {
@@ -17,13 +17,14 @@ public class VendorController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Vendor createVendor(@RequestBody Vendor vendor) {
-        return vendorService.createVendor(vendor);
+    public ResponseEntity<Vendor> createVendor(@RequestBody Vendor vendor) {
+        Vendor createdVendor = vendorService.createVendor(vendor);
+        return ResponseEntity.ok(createdVendor);
     }
 
     @GetMapping
-    public List<Vendor> getAllVendors() {
-        return vendorService.getAllVendors();
+    public ResponseEntity<List<Vendor>> getAllVendors() {
+        List<Vendor> vendors = vendorService.getAllVendors();
+        return ResponseEntity.ok(vendors);
     }
 }
