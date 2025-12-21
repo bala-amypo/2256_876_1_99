@@ -17,9 +17,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     // private final PasswordEncoder passwordEncoder; 
 
-    public UserServiceImpl(UserRepository userRepository,
-                           RoleRepository roleRepository
-                           /*, PasswordEncoder passwordEncoder*/) { 
+    public UserServiceImpl(UserRepository userRepository,RoleRepository roleRepository/*, PasswordEncoder passwordEncoder*/) { 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         // this.passwordEncoder = passwordEncoder; 
@@ -35,8 +33,7 @@ public class UserServiceImpl implements UserService {
         // user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
 
-        Role role = roleRepository.findByName("USER")
-                .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+        Role role = roleRepository.findByName("USER").orElseThrow(() -> new ResourceNotFoundException("Role not found"));
 
         user.setRoles(Set.of(role));
         return userRepository.save(user);
@@ -44,13 +41,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 }

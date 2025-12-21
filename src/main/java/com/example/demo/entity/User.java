@@ -7,7 +7,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // ✅ REQUIRED FOR TESTS
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) 
 public class User {
 
     @Id
@@ -16,10 +16,10 @@ public class User {
 
     private String name;
 
-    @Column(unique = true, nullable = false) // ✅ mandatory
+    @Column(unique = true, nullable = false) 
     private String email;
 
-    @Column(nullable = false) // ✅ required for login tests
+    @Column(nullable = false) 
     private String password;
 
     private LocalDateTime createdAt;
@@ -43,7 +43,6 @@ public class User {
         this.createdAt = createdAt;
     }
 
-    // ===== Getters & Setters =====
 
     public Long getId() {
         return id;
