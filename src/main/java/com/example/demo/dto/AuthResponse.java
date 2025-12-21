@@ -1,8 +1,8 @@
-package com.example.demo.dto;
+// package com.example.demo.dto;
 
 // import java.util.Set;
 
-public class AuthResponse {
+// public class AuthResponse {
 
     // private String token;
     // private Long userId;
@@ -31,4 +31,4 @@ public class AuthResponse {
     // public Set<String> getRoles() {
     //     return roles;
     // }
-}
+// }
