@@ -1,40 +1,54 @@
 package com.example.demo.entity;
-import jakarta.persistence.*;   
-import java.util.*; 
-    
+
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "roles")
-public class Role{ 
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE) // ✅ REQUIRED FOR TESTS
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false) // ✅ name must exist
     private String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>(); // ✅ avoid NPE
 
-    public Long getId() {
-        return id;
+    // ===== Constructors =====
+
+    public Role() {
     }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
+
+    public Role(String name) {
         this.name = name;
     }
-    
+
+    // ⚠️ Keep this ONLY if tests explicitly use it
     public Role(Long id, String name) {
         this.id = id;
         this.name = name;
     }
-    public Role() {
+
+    // ===== Getters & Setters =====
+
+    public Long getId() {
+        return id;
     }
-    public Role(String name) {
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<User> getUsers() {
+        return users;
     }
 }
