@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "depreciation_rules")
@@ -28,6 +29,7 @@ public class DepreciationRule {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "depreciationRule")
+    @JsonIgnore
     private Set<Asset> assets = new HashSet<>();
 
     public DepreciationRule() {}
