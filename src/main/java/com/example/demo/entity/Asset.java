@@ -66,36 +66,79 @@ public class Asset {
 
     // Getters and setters
     public Long getId() { 
-        return id; }
-    public void setId(Long id) { this.id = id; }
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-    public String getAssetTag() { return assetTag; }
-    public void setAssetTag(String assetTag) { this.assetTag = assetTag; }
+    public String getAssetTag() { 
+        return assetTag; 
+    }
+    public void setAssetTag(String assetTag) { 
+        this.assetTag = assetTag; 
+    }
 
-    public String getAssetName() { return assetName; }
-    public void setAssetName(String assetName) { this.assetName = assetName; }
+    public String getAssetName() { 
+        return assetName; 
+    }
+    public void setAssetName(String assetName) { 
+        this.assetName = assetName; 
+    }
 
-    public Vendor getVendor() { return vendor; }
-    public void setVendor(Vendor vendor) { this.vendor = vendor; }
+    public Vendor getVendor() { 
+        return vendor; 
+    }
+    public void setVendor(Vendor vendor) { 
+        this.vendor = vendor; 
+    }
 
-    public LocalDate getPurchaseDate() { return purchaseDate; }
-    public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
+    public LocalDate getPurchaseDate() { 
+        return purchaseDate; 
+    }
+    public void setPurchaseDate(LocalDate purchaseDate) { 
+        this.purchaseDate = purchaseDate; 
+    }
 
-    public Double getPurchaseCost() { return purchaseCost; }
-    public void setPurchaseCost(Double purchaseCost) { this.purchaseCost = purchaseCost; }
+    public Double getPurchaseCost() { 
+        return purchaseCost; 
+    }
+    public void setPurchaseCost(Double purchaseCost) { 
+        this.purchaseCost = purchaseCost; 
+    }
 
-    public DepreciationRule getDepreciationRule() { return depreciationRule; }
-    public void setDepreciationRule(DepreciationRule depreciationRule) { this.depreciationRule = depreciationRule; }
+    public DepreciationRule getDepreciationRule() { 
+        return depreciationRule; 
+    }
+    public void setDepreciationRule(DepreciationRule depreciationRule) { 
+        this.depreciationRule = depreciationRule; 
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getStatus() { 
+        return status; 
+    }
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getCreatedAt() { 
+        return createdAt; 
+    }
+    public void setCreatedAt(LocalDateTime createdAt) { 
+        this.createdAt = createdAt; 
+    }
 
-    public Set<AssetLifecycleEvent> getLifecycleEvents() { return lifecycleEvents; }
-    public void setLifecycleEvents(Set<AssetLifecycleEvent> lifecycleEvents) { this.lifecycleEvents = lifecycleEvents; }
+    public Set<AssetLifecycleEvent> getLifecycleEvents() { 
+        return lifecycleEvents; 
+    }
+    public void setLifecycleEvents(Set<AssetLifecycleEvent> lifecycleEvents) { 
+        this.lifecycleEvents = lifecycleEvents; 
+    }
 
-    public AssetDisposal getDisposal() { return disposal; }
-    public void setDisposal(AssetDisposal disposal) { this.disposal = disposal; }
+    public AssetDisposal getDisposal() { 
+        return disposal; 
+    }
+    public void setDisposal(AssetDisposal disposal) { 
+        this.disposal = disposal; 
+    }
 }
