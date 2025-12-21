@@ -26,52 +26,57 @@ public class Vendor {
     @OneToMany(mappedBy = "vendor")
     private Set<Asset> assets;
 
+    public Vendor() {
+    }
+
+    public Vendor(String vendorName, String contactEmail, String phone,LocalDateTime createdAt) {
+        this.vendorName = vendorName;
+        this.contactEmail = contactEmail;
+        this.phone = phone;
+        this.createdAt = LocalDateTime.now();
+    }
+
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getVendorName() {
         return vendorName;
     }
+
     public void setVendorName(String vendorName) {
         this.vendorName = vendorName;
     }
+
     public String getContactEmail() {
         return contactEmail;
     }
+
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
     }
+
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
     public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+    this.createdAt = createdAt;
+}
+
+
     public Set<Asset> getAssets() {
         return assets;
-    }
-    public void setAssets(Set<Asset> assets) {
-        this.assets = assets;
-    }
-
-    public Vendor(Long id, String vendorName, String contactEmail, String phone, LocalDateTime createdAt,
-            Set<Asset> assets) {
-        this.id = id;
-        this.vendorName = vendorName;
-        this.contactEmail = contactEmail;
-        this.phone = phone;
-        this.createdAt = createdAt;
-        this.assets = assets;
-    }
-    public Vendor() {
     }
 }
