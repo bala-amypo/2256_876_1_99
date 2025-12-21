@@ -38,7 +38,7 @@ public class AssetDisposalServiceImpl implements AssetDisposalService {
 
     @Override
     public AssetDisposal approveDisposal(Long disposalId, Long adminId) {
-
+ 
         AssetDisposal disposal = disposalRepository.findById(disposalId).orElseThrow(() -> new ResourceNotFoundException("Disposal not found"));
         User admin = userRepository.findById(adminId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         disposal.setApprovedBy(admin);
