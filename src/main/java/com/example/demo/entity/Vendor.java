@@ -63,11 +63,20 @@ public class Vendor {
         return phone; 
     }
     public void setPhone(String phone) { 
-        this.phone = phone; }
+        this.phone = phone; 
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public LocalDateTime getCreatedAt() { 
+        return createdAt; 
+    }
+    public void setCreatedAt(LocalDateTime createdAt) { 
+        this.createdAt = createdAt; 
+    }
 
-    public Set<Asset> getAssets() { return assets; }
-    public void setAssets(Set<Asset> assets) { this.assets = assets; }
+    public Set<Asset> getAssets() { 
+        return assets; 
+    }
+    public void setAssets(Set<Asset> assets) { 
+        this.assets = assets; 
+    }
 }
