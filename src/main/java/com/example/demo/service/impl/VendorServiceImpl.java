@@ -7,11 +7,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Service
 public class VendorServiceImpl implements VendorService {
-
     private final VendorRepository vendorRepository;
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
 
     public VendorServiceImpl(VendorRepository vendorRepository) {
         this.vendorRepository = vendorRepository;
@@ -19,14 +20,11 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public Vendor createVendor(Vendor vendor) {
-
-        // Vendor name unique check (FIXED for Optional)
         if (vendorRepository.findByVendorName(vendor.getVendorName()).isPresent()) {
             throw new IllegalArgumentException("Vendor name already exists");
         }
 
-        // Email validation
-        if (!vendor.getContactEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+        if (vendor.getContactEmail() != null && !EMAIL_PATTERN.matcher(vendor.getContactEmail()).matches()) {
             throw new IllegalArgumentException("Invalid email format");
         }
 
@@ -36,21 +34,6 @@ public class VendorServiceImpl implements VendorService {
 
     @Override
     public List<Vendor> getAllVendors() {
-
-        List<Vendor> vendors = vendorRepository.findAll();
-
-        // DEFAULT vendor for empty DB (important for portal tests)
-        if (vendors.isEmpty()) {
-            Vendor defaultVendor = new Vendor();
-            defaultVendor.setVendorName("Default Vendor");
-            defaultVendor.setContactEmail("vendor@test.com");
-            defaultVendor.setPhone("9999999999");
-            defaultVendor.setCreatedAt(LocalDateTime.now());
-
-            vendorRepository.save(defaultVendor);
-            vendors = List.of(defaultVendor);
-        }
-
-        return vendors;
+        return vendorRepository.findAll();
     }
 }
