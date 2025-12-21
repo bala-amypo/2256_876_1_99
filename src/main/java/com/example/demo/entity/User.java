@@ -28,6 +28,7 @@ public class User {
     private LocalDateTime createdAt;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     @JoinTable(
         name = "user_roles",
         joinColumns = @JoinColumn(name = "user_id"),
@@ -36,6 +37,7 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "approvedBy")
+    @JsonIgnore
     private Set<AssetDisposal> approvedDisposals = new HashSet<>();
 
     public User() {}
