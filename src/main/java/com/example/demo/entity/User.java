@@ -20,7 +20,7 @@ public class User{
 
     private LocalDateTime createdAt;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "approvedBy")
