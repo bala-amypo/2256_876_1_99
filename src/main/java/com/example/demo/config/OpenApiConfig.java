@@ -1,9 +1,14 @@
 package com.example.demo.config;
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import java.util.List;
 
 @Configuration
@@ -11,38 +16,36 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
+
+        // Server configuration
+        Server server = new Server();
+        server.setUrl("https://9029.pro604cr.amypo.ai/");
+        server.setDescription("Production Server");
+
+        // JWT Security scheme
+        SecurityScheme bearerAuth = new SecurityScheme()
+                .type(SecurityScheme.Type.HTTP)
+                .scheme("bearer")
+                .bearerFormat("JWT");
+
         return new OpenAPI()
-                // You need to change the port as per your server
-                .servers(List.of(
-                        new Server().url("https://9029.pro604cr.amypo.ai/")
-                ));
-        }package com.example.demo.config;
+                // Server
+                .servers(List.of(server))
 
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Info;
-import io.swagger.v3.oas.models.security.SecurityRequirement;
-import io.swagger.v3.oas.models.security.SecurityScheme;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+                // API Info
+                .info(new Info()
+                        .title("Asset Lifecycle Tracking API")
+                        .version("1.0")
+                        .description("API for managing asset lifecycle tracking"))
 
-@Configuration
-public class SwaggerConfig {
+                // Apply JWT globally
+                .addSecurityItem(
+                        new SecurityRequirement().addList("Bearer Authentication")
+                )
 
-    @Bean
-    public OpenAPI customOpenAPI() {
-        return new OpenAPI()
-            .info(new Info()
-                .title("Asset Lifecycle Tracking API")
-                .version("1.0")
-                .description("API for managing asset lifecycle tracking"))
-            .addSecurityItem(new SecurityRequirement().addList("Bearer Authentication"))
-            .components(new Components()
-                .addSecuritySchemes("Bearer Authentication", 
-                    new SecurityScheme()
-                        .type(SecurityScheme.Type.HTTP)
-                        .scheme("bearer")
-                        .bearerFormat("JWT")));
+                // Components
+                .components(new Components()
+                        .addSecuritySchemes("Bearer Authentication", bearerAuth)
+                );
     }
-}
 }
