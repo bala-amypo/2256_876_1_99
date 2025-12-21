@@ -46,7 +46,6 @@ public class JwtUtil {
         return 0L;
     }
 
-
     public Set<String> extractRoles(String token) {
         return new HashSet<>();
     }
