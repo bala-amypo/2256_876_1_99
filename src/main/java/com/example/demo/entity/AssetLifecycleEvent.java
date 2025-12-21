@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "asset_lifecycle_events")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public class AssetLifecycleEvent {
 
     @Id
