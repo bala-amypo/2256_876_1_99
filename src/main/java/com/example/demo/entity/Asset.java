@@ -32,6 +32,7 @@ public class Asset {
     private Double purchaseCost;
 
     @ManyToOne
+    
     @JoinColumn(name = "depreciation_rule_id", nullable = false)
     private DepreciationRule depreciationRule;
 

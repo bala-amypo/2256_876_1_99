@@ -12,6 +12,7 @@ public class AssetDisposal {
     private Long id;
 
     @OneToOne
+    
     @JoinColumn(name = "asset_id", nullable = false)
     private Asset asset;
 
