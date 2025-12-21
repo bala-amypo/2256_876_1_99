@@ -32,7 +32,7 @@ public class Asset {
     private Double purchaseCost;
 
     @ManyToOne
-    
+    @JsonIgnore
     @JoinColumn(name = "depreciation_rule_id", nullable = false)
     private DepreciationRule depreciationRule;
 
@@ -43,9 +43,11 @@ public class Asset {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<AssetLifecycleEvent> lifecycleEvents = new HashSet<>();
 
     @OneToOne(mappedBy = "asset")
+    @JsonIgnore
     private AssetDisposal disposal;
 
     public Asset() {}

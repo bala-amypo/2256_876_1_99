@@ -3,6 +3,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 @Table(name = "asset_lifecycle_events")
@@ -12,6 +14,7 @@ public class AssetLifecycleEvent {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "asset_id", nullable = false)
     private Asset asset;
 

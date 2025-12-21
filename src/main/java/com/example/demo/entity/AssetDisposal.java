@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "asset_disposals")
@@ -12,7 +13,7 @@ public class AssetDisposal {
     private Long id;
 
     @OneToOne
-    
+    @JsonIgnore
     @JoinColumn(name = "asset_id", nullable = false)
     private Asset asset;
 
@@ -26,6 +27,7 @@ public class AssetDisposal {
     private LocalDate disposalDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "approved_by")
     private User approvedBy;
 
