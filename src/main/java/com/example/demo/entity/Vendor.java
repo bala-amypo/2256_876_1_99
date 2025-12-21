@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "vendors")
@@ -24,6 +25,7 @@ public class Vendor {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "vendor")
+    @JsonIgnore
     private Set<Asset> assets = new HashSet<>();
 
     public Vendor() {}

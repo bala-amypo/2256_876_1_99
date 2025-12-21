@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "assets")
@@ -21,6 +22,7 @@ public class Asset {
 
     @ManyToOne
     @JoinColumn(name = "vendor_id", nullable = false)
+    @JsonIgnore
     private Vendor vendor;
 
     @Column(name = "purchase_date", nullable = false)
