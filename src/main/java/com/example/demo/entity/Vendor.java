@@ -29,7 +29,7 @@ public class Vendor {
     public Vendor() {
     }
 
-    public Vendor(String vendorName, String contactEmail, String phone,LocalDateTime createdAt) {
+    public Vendor(String vendorName, String contactEmail, String phone) {
         this.vendorName = vendorName;
         this.contactEmail = contactEmail;
         this.phone = phone;
