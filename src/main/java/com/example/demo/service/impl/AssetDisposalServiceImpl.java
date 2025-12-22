@@ -19,8 +19,7 @@ public class AssetDisposalServiceImpl implements AssetDisposalService {
     private final AssetRepository assetRepository;
     private final UserRepository userRepository;
 
-    public AssetDisposalServiceImpl(AssetDisposalRepository disposalRepository, 
-                                   AssetRepository assetRepository, UserRepository userRepository) {
+    public AssetDisposalServiceImpl(AssetDisposalRepository disposalRepository, AssetRepository assetRepository, UserRepository userRepository) {
         this.disposalRepository = disposalRepository;
         this.assetRepository = assetRepository;
         this.userRepository = userRepository;
