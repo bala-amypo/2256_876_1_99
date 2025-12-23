@@ -42,20 +42,16 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // 🔓 Swagger endpoints
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**"
                 ).permitAll()
 
-                // 🔓 Authentication endpoints
                 .requestMatchers("/auth/**").permitAll()
 
-                // 🔐 Protected APIs
                 .requestMatchers("/api/**").authenticated()
 
-                // 🔐 Any other request
                 .anyRequest().authenticated()
             )
 
@@ -63,7 +59,6 @@ public class SecurityConfig {
                 ex.authenticationEntryPoint(jwtAuthenticationEntryPoint)
             )
 
-            // 🔥 JWT Filter
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

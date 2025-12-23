@@ -17,12 +17,10 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
 
-        // Server configuration
         Server server = new Server();
         server.setUrl("https://9146.32procr.amypo.ai/");
         server.setDescription("Production Server");
 
-        // JWT Security scheme
         SecurityScheme bearerAuth = new SecurityScheme()
                 .type(SecurityScheme.Type.HTTP)
                 .scheme("bearer")
