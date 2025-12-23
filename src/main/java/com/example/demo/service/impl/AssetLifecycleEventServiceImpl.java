@@ -27,10 +27,8 @@ public class AssetLifecycleEventServiceImpl
         this.assetRepository = assetRepository;
     }
 
-    // test19, test20, test123
     @Override
-    public AssetLifecycleEvent logEvent(Long assetId,
-                                       AssetLifecycleEvent event) {
+    public AssetLifecycleEvent logEvent(Long assetId,AssetLifecycleEvent event) {
 
         Asset asset = assetRepository.findById(assetId)
                 .orElseThrow(() ->
@@ -60,7 +58,6 @@ public class AssetLifecycleEventServiceImpl
         return eventRepository.save(event);
     }
 
-    // test21
     @Override
     public List<AssetLifecycleEvent> getEventsForAsset(Long assetId) {
 

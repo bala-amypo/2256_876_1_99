@@ -21,9 +21,7 @@ public class AssetServiceImpl implements AssetService {
     private final VendorRepository vendorRepository;
     private final DepreciationRuleRepository depreciationRuleRepository;
 
-    public AssetServiceImpl(AssetRepository assetRepository,
-                            VendorRepository vendorRepository,
-                            DepreciationRuleRepository depreciationRuleRepository) {
+    public AssetServiceImpl(AssetRepository assetRepository,VendorRepository vendorRepository,DepreciationRuleRepository depreciationRuleRepository) {
         this.assetRepository = assetRepository;
         this.vendorRepository = vendorRepository;
         this.depreciationRuleRepository = depreciationRuleRepository;
