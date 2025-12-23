@@ -13,26 +13,41 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class AssetLifecycleEventServiceImpl implements AssetLifecycleEventService {
+public class AssetLifecycleEventServiceImpl
+        implements AssetLifecycleEventService {
+
     private final AssetLifecycleEventRepository eventRepository;
     private final AssetRepository assetRepository;
 
-    public AssetLifecycleEventServiceImpl(AssetLifecycleEventRepository eventRepository, AssetRepository assetRepository) {
+    public AssetLifecycleEventServiceImpl(
+            AssetLifecycleEventRepository eventRepository,
+            AssetRepository assetRepository) {
+
         this.eventRepository = eventRepository;
         this.assetRepository = assetRepository;
     }
 
+    // test19, test20, test123
     @Override
-    public AssetLifecycleEvent logEvent(Long assetId, AssetLifecycleEvent event) {
-        Asset asset = assetRepository.findById(assetId)
-            .orElseThrow(() -> new ResourceNotFoundException("Asset not found"));
+    public AssetLifecycleEvent logEvent(Long assetId,
+                                       AssetLifecycleEvent event) {
 
-        if (event.getEventType() == null || event.getEventType().trim().isEmpty()) {
+        Asset asset = assetRepository.findById(assetId)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Asset not found"));
+
+        if (event.getEventType() == null ||
+            event.getEventType().trim().isEmpty()) {
             throw new IllegalArgumentException("Event type is required");
         }
 
-        if (event.getEventDescription() == null || event.getEventDescription().trim().isEmpty()) {
+        if (event.getEventDescription() == null ||
+            event.getEventDescription().trim().isEmpty()) {
             throw new IllegalArgumentException("Event description cannot be blank");
+        }
+
+        if (event.getEventDate() == null) {
+            throw new IllegalArgumentException("Event date is required");
         }
 
         if (event.getEventDate().isAfter(LocalDate.now())) {
@@ -41,14 +56,18 @@ public class AssetLifecycleEventServiceImpl implements AssetLifecycleEventServic
 
         event.setAsset(asset);
         event.setLoggedAt(LocalDateTime.now());
+
         return eventRepository.save(event);
     }
 
+    // test21
     @Override
     public List<AssetLifecycleEvent> getEventsForAsset(Long assetId) {
+
         if (!assetRepository.existsById(assetId)) {
             throw new ResourceNotFoundException("Asset not found");
         }
+
         return eventRepository.findByAssetIdOrderByEventDateDesc(assetId);
     }
 }
