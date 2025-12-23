@@ -30,7 +30,7 @@ public class VendorController {
         return ResponseEntity.ok(vendorService.getAllVendors());
     }
 
-    // 🔥 REQUIRED BY INTEGRATION TEST
+    // GET VENDOR BY ID
     @GetMapping("/{id}")
     public ResponseEntity<Vendor> getVendorById(@PathVariable Long id) {
         return ResponseEntity.ok(vendorService.getVendorById(id));

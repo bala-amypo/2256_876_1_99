@@ -17,7 +17,6 @@ public class AssetLifecycleEventController {
         this.eventService = eventService;
     }
 
-    // test19, test20, test123
     @PostMapping("/{assetId}")
     public ResponseEntity<AssetLifecycleEvent> logEvent(
             @PathVariable Long assetId,
@@ -27,7 +26,6 @@ public class AssetLifecycleEventController {
         return ResponseEntity.ok(loggedEvent);
     }
 
-    // test21, test81, test85
     @GetMapping("/asset/{assetId}")
     public ResponseEntity<List<AssetLifecycleEvent>> getEventsForAsset(
             @PathVariable Long assetId) {
