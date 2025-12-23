@@ -7,9 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface AssetLifecycleEventRepository
-        extends JpaRepository<AssetLifecycleEvent, Long> {
-
-    // test81, test85
+public interface AssetLifecycleEventRepository extends JpaRepository<AssetLifecycleEvent, Long> {
     List<AssetLifecycleEvent> findByAssetIdOrderByEventDateDesc(Long assetId);
 }

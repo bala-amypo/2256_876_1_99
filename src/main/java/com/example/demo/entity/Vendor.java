@@ -72,8 +72,13 @@ public class Vendor {
         return createdAt; 
     }
     public void setCreatedAt(LocalDateTime createdAt) { 
-        this.createdAt = createdAt; }
+        this.createdAt = createdAt; 
+    }
 
-    public Set<Asset> getAssets() { return assets; }
-    public void setAssets(Set<Asset> assets) { this.assets = assets; }
+    public Set<Asset> getAssets() { 
+        return assets; 
+    }
+    public void setAssets(Set<Asset> assets) { 
+        this.assets = assets; 
+    }
 }
