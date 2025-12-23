@@ -70,7 +70,6 @@ public class JwtFilter extends OncePerRequestFilter {
                 }
 
             } catch (Exception ex) {
-                // ❌ Invalid JWT → Do NOT block request
                 SecurityContextHolder.clearContext();
             }
         }
