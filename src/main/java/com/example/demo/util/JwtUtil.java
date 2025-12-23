@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component
@@ -48,7 +50,14 @@ public class JwtUtil {
 
     @SuppressWarnings("unchecked")
     public Set<String> extractRoles(String token) {
-        return (Set<String>) extractClaims(token).get("roles");
+        Object rolesObj = extractClaims(token).get("roles");
+        Set<String> rolesSet = new HashSet<>();
+        if (rolesObj instanceof List<?>) {
+            for (Object role : (List<?>) rolesObj) {
+                rolesSet.add(role.toString());
+            }
+        }
+        return rolesSet;
     }
 
     public boolean isTokenExpired(String token) {
