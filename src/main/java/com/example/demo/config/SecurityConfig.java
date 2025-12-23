@@ -42,14 +42,14 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(auth -> auth
 
-                // 🔓 Swagger
+                // 🔓 Swagger endpoints
                 .requestMatchers(
                         "/swagger-ui/**",
                         "/swagger-ui.html",
                         "/v3/api-docs/**"
-                ).permit +-All()
+                ).permitAll()
 
-                // 🔓 Auth APIs
+                // 🔓 Authentication endpoints
                 .requestMatchers("/auth/**").permitAll()
 
                 // 🔐 Protected APIs
