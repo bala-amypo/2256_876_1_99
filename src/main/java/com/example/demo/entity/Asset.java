@@ -118,21 +118,34 @@ public class Asset {
     }
 
     public DepreciationRule getDepreciationRule() { 
-        return depreciationRule; }
+        return depreciationRule; 
+    }
     public void setDepreciationRule(DepreciationRule depreciationRule) {
         this.depreciationRule = depreciationRule;
     }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getStatus() { 
+        return status; 
+    }
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
 
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public LocalDateTime getCreatedAt() { 
+        return createdAt; 
+    }
 
-    public Set<AssetLifecycleEvent> getLifecycleEvents() { return lifecycleEvents; }
+    public Set<AssetLifecycleEvent> getLifecycleEvents() { 
+        return lifecycleEvents; 
+    }
     public void setLifecycleEvents(Set<AssetLifecycleEvent> lifecycleEvents) {
         this.lifecycleEvents = lifecycleEvents;
     }
 
-    public AssetDisposal getDisposal() { return disposal; }
-    public void setDisposal(AssetDisposal disposal) { this.disposal = disposal; }
+    public AssetDisposal getDisposal() { 
+        return disposal; 
+    }
+    public void setDisposal(AssetDisposal disposal) { 
+        this.disposal = disposal; 
+    }
 }
