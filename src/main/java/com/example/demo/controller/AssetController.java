@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@RestController 
 @RequestMapping("/api/assets")
 public class AssetController {
     private final AssetService assetService;
