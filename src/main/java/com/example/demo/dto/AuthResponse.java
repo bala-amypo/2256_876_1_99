@@ -8,7 +8,7 @@ public class AuthResponse {
     private String email;
     private Set<String> roles;
 
-    public AuthResponse() {}
+    public AuthResponse() {}    
 
     public AuthResponse(String token, Long userId, String email, Set<String> roles) {
         this.token = token;
