@@ -15,7 +15,7 @@ import java.util.Set;
 @Component
 public class JwtUtil {
 
-    // Secret key must be >= 32 bytes for HS256
+    // Must be >= 32 bytes for HS256
     private static final String SECRET =
             "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
 
@@ -27,7 +27,7 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
-    /* ===================== TOKEN CREATION ===================== */
+    /* ===================== TOKEN GENERATION ===================== */
 
     public String generateToken(String email, Long userId, Set<String> roles) {
         return Jwts.builder()
@@ -42,8 +42,7 @@ public class JwtUtil {
 
     /* ===================== CLAIMS ===================== */
 
-    // 🔥 THIS METHOD FIXES YOUR COMPILATION ERROR
-    // Used by FullIntegrationTest
+    // ✅ REQUIRED BY FullIntegrationTest
     public Claims getClaims(String token) {
         return extractClaims(token);
     }
@@ -95,7 +94,13 @@ public class JwtUtil {
         return claims != null && claims.getExpiration().before(new Date());
     }
 
-    // 🔥 EXACT SIGNATURE EXPECTED BY YOUR TESTS
+    // ✅ USED BY SOME TESTS
+    public boolean validateToken(String token) {
+        Claims claims = extractClaims(token);
+        return claims != null && !isTokenExpired(token);
+    }
+
+    // ✅ USED BY OTHER TESTS
     public boolean validateToken(String token, String email) {
         String tokenEmail = extractEmail(token);
         return tokenEmail != null
