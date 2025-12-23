@@ -15,12 +15,19 @@ import java.util.Set;
 @Component
 public class JwtUtil {
 
-    private final String SECRET = "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
-    private final long EXPIRATION_TIME = 86_400_000L; // 24 hours
+    // Secret key must be >= 32 bytes for HS256
+    private static final String SECRET =
+            "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
+
+    private static final long EXPIRATION_TIME = 86_400_000L; // 24 hours
+
+    /* ===================== KEY ===================== */
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
+
+    /* ===================== TOKEN CREATION ===================== */
 
     public String generateToken(String email, Long userId, Set<String> roles) {
         return Jwts.builder()
@@ -33,6 +40,14 @@ public class JwtUtil {
                 .compact();
     }
 
+    /* ===================== CLAIMS ===================== */
+
+    // 🔥 THIS METHOD FIXES YOUR COMPILATION ERROR
+    // Used by FullIntegrationTest
+    public Claims getClaims(String token) {
+        return extractClaims(token);
+    }
+
     public Claims extractClaims(String token) {
         try {
             return Jwts.parserBuilder()
@@ -41,9 +56,11 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            return null; // or throw a custom exception
+            return null;
         }
     }
+
+    /* ===================== EXTRACTION ===================== */
 
     public String extractEmail(String token) {
         Claims claims = extractClaims(token);
@@ -57,8 +74,9 @@ public class JwtUtil {
 
     @SuppressWarnings("unchecked")
     public Set<String> extractRoles(String token) {
-        Claims claims = extractClaims(token);
         Set<String> rolesSet = new HashSet<>();
+        Claims claims = extractClaims(token);
+
         if (claims != null) {
             Object rolesObj = claims.get("roles");
             if (rolesObj instanceof List<?>) {
@@ -70,13 +88,18 @@ public class JwtUtil {
         return rolesSet;
     }
 
+    /* ===================== VALIDATION ===================== */
+
     public boolean isTokenExpired(String token) {
         Claims claims = extractClaims(token);
         return claims != null && claims.getExpiration().before(new Date());
     }
 
+    // 🔥 EXACT SIGNATURE EXPECTED BY YOUR TESTS
     public boolean validateToken(String token, String email) {
         String tokenEmail = extractEmail(token);
-        return tokenEmail != null && tokenEmail.equals(email) && !isTokenExpired(token);
+        return tokenEmail != null
+                && tokenEmail.equals(email)
+                && !isTokenExpired(token);
     }
 }
