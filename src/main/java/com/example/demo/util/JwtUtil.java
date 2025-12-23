@@ -14,8 +14,9 @@ import java.util.Set;
 
 @Component
 public class JwtUtil {
+
     private final String SECRET = "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
-    private final int EXPIRATION_TIME = 86400000; // 24 hours
+    private final long EXPIRATION_TIME = 86_400_000L; // 24 hours
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
@@ -33,38 +34,49 @@ public class JwtUtil {
     }
 
     public Claims extractClaims(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(getSigningKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        try {
+            return Jwts.parserBuilder()
+                    .setSigningKey(getSigningKey())
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e) {
+            return null; // or throw a custom exception
+        }
     }
 
     public String extractEmail(String token) {
-        return extractClaims(token).getSubject();
+        Claims claims = extractClaims(token);
+        return claims != null ? claims.getSubject() : null;
     }
 
     public Long extractUserId(String token) {
-        return extractClaims(token).get("userId", Long.class);
+        Claims claims = extractClaims(token);
+        return claims != null ? claims.get("userId", Long.class) : null;
     }
 
     @SuppressWarnings("unchecked")
     public Set<String> extractRoles(String token) {
-        Object rolesObj = extractClaims(token).get("roles");
+        Claims claims = extractClaims(token);
         Set<String> rolesSet = new HashSet<>();
-        if (rolesObj instanceof List<?>) {
-            for (Object role : (List<?>) rolesObj) {
-                rolesSet.add(role.toString());
+        if (claims != null) {
+            Object rolesObj = claims.get("roles");
+            if (rolesObj instanceof List<?>) {
+                for (Object role : (List<?>) rolesObj) {
+                    rolesSet.add(role.toString());
+                }
             }
         }
         return rolesSet;
     }
 
     public boolean isTokenExpired(String token) {
-        return extractClaims(token).getExpiration().before(new Date());
+        Claims claims = extractClaims(token);
+        return claims != null && claims.getExpiration().before(new Date());
     }
 
     public boolean validateToken(String token, String email) {
-        return extractEmail(token).equals(email) && !isTokenExpired(token);
+        String tokenEmail = extractEmail(token);
+        return tokenEmail != null && tokenEmail.equals(email) && !isTokenExpired(token);
     }
 }
