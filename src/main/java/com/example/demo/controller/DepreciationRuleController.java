@@ -10,6 +10,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rules")
 public class DepreciationRuleController {
+
     private final DepreciationRuleService depreciationRuleService;
 
     public DepreciationRuleController(DepreciationRuleService depreciationRuleService) {
@@ -24,7 +25,6 @@ public class DepreciationRuleController {
 
     @GetMapping
     public ResponseEntity<List<DepreciationRule>> getAllRules() {
-        List<DepreciationRule> rules = depreciationRuleService.getAllRules();
-        return ResponseEntity.ok(rules);
+        return ResponseEntity.ok(depreciationRuleService.getAllRules());
     }
 }

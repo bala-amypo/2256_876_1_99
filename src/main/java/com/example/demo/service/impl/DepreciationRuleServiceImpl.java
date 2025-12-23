@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class DepreciationRuleServiceImpl implements DepreciationRuleService {
+
     private final DepreciationRuleRepository depreciationRuleRepository;
 
     public DepreciationRuleServiceImpl(DepreciationRuleRepository depreciationRuleRepository) {
@@ -18,15 +19,18 @@ public class DepreciationRuleServiceImpl implements DepreciationRuleService {
 
     @Override
     public DepreciationRule createRule(DepreciationRule rule) {
-        if (rule.getUsefulLifeYears() <= 0) {
+
+        if (rule.getUsefulLifeYears() == null || rule.getUsefulLifeYears() <= 0) {
             throw new IllegalArgumentException("Useful life years must be greater than 0");
         }
 
-        if (rule.getSalvageValue() < 0) {
-            throw new IllegalArgumentException("Salvage value must be greater than or equal to 0");
+        if (rule.getSalvageValue() == null || rule.getSalvageValue() < 0) {
+            throw new IllegalArgumentException("Salvage value must be >= 0");
         }
 
-        if (!rule.getMethod().equals("STRAIGHT_LINE") && !rule.getMethod().equals("DECLINING_BALANCE")) {
+        if (rule.getMethod() == null ||
+            (!rule.getMethod().equals("STRAIGHT_LINE") &&
+             !rule.getMethod().equals("DECLINING_BALANCE"))) {
             throw new IllegalArgumentException("Method must be STRAIGHT_LINE or DECLINING_BALANCE");
         }
 
