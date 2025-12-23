@@ -17,39 +17,68 @@ import java.util.stream.Collectors;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+
     private final JwtUtil jwtUtil;
 
     public JwtFilter(JwtUtil jwtUtil) {
         this.jwtUtil = jwtUtil;
     }
 
+    /**
+     * 🔥 VERY IMPORTANT
+     * Skip JWT validation for Swagger & Auth endpoints
+     */
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, 
-                                   FilterChain filterChain) throws ServletException, IOException {
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String path = request.getRequestURI();
+
+        return path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-ui")
+                || path.startsWith("/swagger-ui.html")
+                || path.startsWith("/auth");
+    }
+
+    @Override
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain
+    ) throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
-        
+
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
+
             String token = authHeader.substring(7);
+
             try {
                 String email = jwtUtil.extractEmail(token);
                 Set<String> roles = jwtUtil.extractRoles(token);
-                
-                if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    if (jwtUtil.validateToken(token, email)) {
-                        Set<SimpleGrantedAuthority> authorities = roles.stream()
+
+                if (email != null &&
+                        SecurityContextHolder.getContext().getAuthentication() == null &&
+                        jwtUtil.validateToken(token, email)) {
+
+                    Set<SimpleGrantedAuthority> authorities = roles.stream()
                             .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                             .collect(Collectors.toSet());
-                        
-                        UsernamePasswordAuthenticationToken authToken = 
-                            new UsernamePasswordAuthenticationToken(email, null, authorities);
-                        SecurityContextHolder.getContext().setAuthentication(authToken);
-                    }
+
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    email,
+                                    null,
+                                    authorities
+                            );
+
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-            } catch (Exception e) {
-                // Invalid token, continue without authentication
+
+            } catch (Exception ex) {
+                // ❌ Invalid JWT → Do NOT block request
+                SecurityContextHolder.clearContext();
             }
         }
-        
+
         filterChain.doFilter(request, response);
     }
 }
