@@ -75,25 +75,50 @@ public class Asset {
 
     // Getters and Setters
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() { 
+        return id; 
+    }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
 
-    public String getAssetTag() { return assetTag; }
-    public void setAssetTag(String assetTag) { this.assetTag = assetTag; }
+    public String getAssetTag() { 
+        return assetTag; 
+    }
+    public void setAssetTag(String assetTag) { 
+        this.assetTag = assetTag; 
+    }
 
-    public String getAssetName() { return assetName; }
-    public void setAssetName(String assetName) { this.assetName = assetName; }
+    public String getAssetName() { 
+        return assetName; 
+    }
+    public void setAssetName(String assetName) { 
+        this.assetName = assetName; 
+    }
 
-    public Vendor getVendor() { return vendor; }
-    public void setVendor(Vendor vendor) { this.vendor = vendor; }
+    public Vendor getVendor() { 
+        return vendor; 
+    }
+    public void setVendor(Vendor vendor) { 
+        this.vendor = vendor; 
+    }
 
-    public LocalDate getPurchaseDate() { return purchaseDate; }
-    public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
+    public LocalDate getPurchaseDate() { 
+        return purchaseDate; 
+    }
+    public void setPurchaseDate(LocalDate purchaseDate) { 
+        this.purchaseDate = purchaseDate; 
+    }
 
-    public Double getPurchaseCost() { return purchaseCost; }
-    public void setPurchaseCost(Double purchaseCost) { this.purchaseCost = purchaseCost; }
+    public Double getPurchaseCost() { 
+        return purchaseCost; 
+    }
+    public void setPurchaseCost(Double purchaseCost) { 
+        this.purchaseCost = purchaseCost; 
+    }
 
-    public DepreciationRule getDepreciationRule() { return depreciationRule; }
+    public DepreciationRule getDepreciationRule() { 
+        return depreciationRule; }
     public void setDepreciationRule(DepreciationRule depreciationRule) {
         this.depreciationRule = depreciationRule;
     }
