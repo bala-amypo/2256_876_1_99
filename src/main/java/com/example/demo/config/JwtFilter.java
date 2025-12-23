@@ -24,10 +24,6 @@ public class JwtFilter extends OncePerRequestFilter {
         this.jwtUtil = jwtUtil;
     }
 
-    /**
-     * 🔥 VERY IMPORTANT
-     * Skip JWT validation for Swagger & Auth endpoints
-     */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getRequestURI();
