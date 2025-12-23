@@ -16,18 +16,13 @@ import java.util.Set;
 public class JwtUtil {
 
     // Must be >= 32 bytes for HS256
-    private static final String SECRET =
-            "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
+    private static final String SECRET ="mySecretKeyForJWTTokenGenerationThatIsLongEnough";
 
-    private static final long EXPIRATION_TIME = 86_400_000L; // 24 hours
-
-    /* ===================== KEY ===================== */
+    private static final long EXPIRATION_TIME = 86_400_000L;
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
-
-    /* ===================== TOKEN GENERATION ===================== */
 
     public String generateToken(String email, Long userId, Set<String> roles) {
         return Jwts.builder()
@@ -40,9 +35,6 @@ public class JwtUtil {
                 .compact();
     }
 
-    /* ===================== CLAIMS ===================== */
-
-    // ✅ REQUIRED BY FullIntegrationTest
     public Claims getClaims(String token) {
         return extractClaims(token);
     }
@@ -58,8 +50,6 @@ public class JwtUtil {
             return null;
         }
     }
-
-    /* ===================== EXTRACTION ===================== */
 
     public String extractEmail(String token) {
         Claims claims = extractClaims(token);
@@ -87,20 +77,16 @@ public class JwtUtil {
         return rolesSet;
     }
 
-    /* ===================== VALIDATION ===================== */
-
     public boolean isTokenExpired(String token) {
         Claims claims = extractClaims(token);
         return claims != null && claims.getExpiration().before(new Date());
     }
 
-    // ✅ USED BY SOME TESTS
     public boolean validateToken(String token) {
         Claims claims = extractClaims(token);
         return claims != null && !isTokenExpired(token);
     }
 
-    // ✅ USED BY OTHER TESTS
     public boolean validateToken(String token, String email) {
         String tokenEmail = extractEmail(token);
         return tokenEmail != null

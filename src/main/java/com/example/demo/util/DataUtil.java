@@ -19,9 +19,7 @@ public class DataUtil implements CommandLineRunner {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public DataUtil(RoleRepository roleRepository,
-                    UserRepository userRepository,
-                    PasswordEncoder passwordEncoder) {
+    public DataUtil(RoleRepository roleRepository,UserRepository userRepository,PasswordEncoder passwordEncoder) {
         this.roleRepository = roleRepository;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
