@@ -8,5 +8,6 @@ import java.util.List;
 
 @Repository
 public interface AssetDisposalRepository extends JpaRepository<AssetDisposal, Long> {
+
     List<AssetDisposal> findByApprovedBy(User approvedBy);
 }
