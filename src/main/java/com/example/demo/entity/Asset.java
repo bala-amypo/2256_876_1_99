@@ -1,159 +1,113 @@
-package com.example.demo.controller;
+package com.example.demo.entity;
 
-import com.example.demo.entity.Asset;
-import com.example.demo.service.AssetService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@RestController
-@RequestMapping("/api/assets")
-public class AssetController {
+@Entity
+@Table(name = "assets")
+public class Asset {
 
-    private final AssetService assetService;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
+    @Column(name = "asset_tag", nullable = false, unique = true)
+    private String assetTag;
+
+    @Column(name = "asset_name", nullable = false)
+    private String assetName;
+
+    @ManyToOne
+    @JoinColumn(name = "vendor_id", nullable = false)
+    @JsonIgnore
+    private Vendor vendor;
+
+    @Column(name = "purchase_date", nullable = false)
+    private LocalDate purchaseDate;
+
+    @Column(name = "purchase_cost", nullable = false)
+    private Double purchaseCost;
+
+    @ManyToOne
+    @JoinColumn(name = "depreciation_rule_id", nullable = false)
+    @JsonIgnore
+    private DepreciationRule depreciationRule;
+
+    @Column(nullable = false)
+    private String status = "ACTIVE";
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Set<AssetLifecycleEvent> lifecycleEvents = new HashSet<>();
+
+    @OneToOne(mappedBy = "asset")
+    @JsonIgnore
+    private AssetDisposal disposal;
+
+    public Asset() {}
+
+    public Asset(String assetTag, String assetName, Vendor vendor,
+                 LocalDate purchaseDate, Double purchaseCost,
+                 DepreciationRule depreciationRule) {
+        this.assetTag = assetTag;
+        this.assetName = assetName;
+        this.vendor = vendor;
+        this.purchaseDate = purchaseDate;
+        this.purchaseCost = purchaseCost;
+        this.depreciationRule = depreciationRule;
     }
 
-    // ADMIN only – create asset
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/{vendorId}/{ruleId}")
-    public ResponseEntity<Asset> createAsset(
-            @PathVariable Long vendorId,
-            @PathVariable Long ruleId,
-            @RequestBody Asset asset) {
-
-        Asset created = assetService.createAsset(vendorId, ruleId, asset);
-        return ResponseEntity.ok(created);
+    @PrePersist
+    public void onCreate() {
+        this.createdAt = LocalDateTime.now();
+        if (this.status == null) {
+            this.status = "ACTIVE";
+        }
     }
 
-    // ADMIN / USER – view all assets
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping
-    public ResponseEntity<List<Asset>> getAllAssets() {
-        return ResponseEntity.ok(assetService.getAllAssets());
+    // Getters and Setters
+
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+
+    public String getAssetTag() { return assetTag; }
+    public void setAssetTag(String assetTag) { this.assetTag = assetTag; }
+
+    public String getAssetName() { return assetName; }
+    public void setAssetName(String assetName) { this.assetName = assetName; }
+
+    public Vendor getVendor() { return vendor; }
+    public void setVendor(Vendor vendor) { this.vendor = vendor; }
+
+    public LocalDate getPurchaseDate() { return purchaseDate; }
+    public void setPurchaseDate(LocalDate purchaseDate) { this.purchaseDate = purchaseDate; }
+
+    public Double getPurchaseCost() { return purchaseCost; }
+    public void setPurchaseCost(Double purchaseCost) { this.purchaseCost = purchaseCost; }
+
+    public DepreciationRule getDepreciationRule() { return depreciationRule; }
+    public void setDepreciationRule(DepreciationRule depreciationRule) {
+        this.depreciationRule = depreciationRule;
     }
 
-    // ADMIN / USER – view by status
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Asset>> getAssetsByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(assetService.getAssetsByStatus(status));
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
+
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+    public Set<AssetLifecycleEvent> getLifecycleEvents() { return lifecycleEvents; }
+    public void setLifecycleEvents(Set<AssetLifecycleEvent> lifecycleEvents) {
+        this.lifecycleEvents = lifecycleEvents;
     }
 
-    // ADMIN / USER – view by id
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/{id}")
-    public ResponseEntity<Asset> getAsset(@PathVariable Long id) {
-        return ResponseEntity.ok(assetService.getAsset(id));
-    }
-}
-package com.example.demo.controller;
-
-import com.example.demo.entity.Asset;
-import com.example.demo.service.AssetService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/assets")
-public class AssetController {
-
-    private final AssetService assetService;
-
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
-    }
-
-    // ADMIN only – create asset
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/{vendorId}/{ruleId}")
-    public ResponseEntity<Asset> createAsset(
-            @PathVariable Long vendorId,
-            @PathVariable Long ruleId,
-            @RequestBody Asset asset) {
-
-        Asset created = assetService.createAsset(vendorId, ruleId, asset);
-        return ResponseEntity.ok(created);
-    }
-
-    // ADMIN / USER – view all assets
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping
-    public ResponseEntity<List<Asset>> getAllAssets() {
-        return ResponseEntity.ok(assetService.getAllAssets());
-    }
-
-    // ADMIN / USER – view by status
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Asset>> getAssetsByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(assetService.getAssetsByStatus(status));
-    }
-
-    // ADMIN / USER – view by id
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/{id}")
-    public ResponseEntity<Asset> getAsset(@PathVariable Long id) {
-        return ResponseEntity.ok(assetService.getAsset(id));
-    }
-}
-package com.example.demo.controller;
-
-import com.example.demo.entity.Asset;
-import com.example.demo.service.AssetService;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-@RestController
-@RequestMapping("/api/assets")
-public class AssetController {
-
-    private final AssetService assetService;
-
-    public AssetController(AssetService assetService) {
-        this.assetService = assetService;
-    }
-
-    // ADMIN only – create asset
-    @PreAuthorize("hasRole('ADMIN')")
-    @PostMapping("/{vendorId}/{ruleId}")
-    public ResponseEntity<Asset> createAsset(
-            @PathVariable Long vendorId,
-            @PathVariable Long ruleId,
-            @RequestBody Asset asset) {
-
-        Asset created = assetService.createAsset(vendorId, ruleId, asset);
-        return ResponseEntity.ok(created);
-    }
-
-    // ADMIN / USER – view all assets
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping
-    public ResponseEntity<List<Asset>> getAllAssets() {
-        return ResponseEntity.ok(assetService.getAllAssets());
-    }
-
-    // ADMIN / USER – view by status
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/status/{status}")
-    public ResponseEntity<List<Asset>> getAssetsByStatus(@PathVariable String status) {
-        return ResponseEntity.ok(assetService.getAssetsByStatus(status));
-    }
-
-    // ADMIN / USER – view by id
-    @PreAuthorize("hasAnyRole('ADMIN','USER')")
-    @GetMapping("/{id}")
-    public ResponseEntity<Asset> getAsset(@PathVariable Long id) {
-        return ResponseEntity.ok(assetService.getAsset(id));
-    }
+    public AssetDisposal getDisposal() { return disposal; }
+    public void setDisposal(AssetDisposal disposal) { this.disposal = disposal; }
 }
