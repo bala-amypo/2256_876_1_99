@@ -9,6 +9,8 @@ import com.example.demo.repository.AssetRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.AssetDisposalService;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,11 +52,20 @@ public class AssetDisposalServiceImpl implements AssetDisposalService {
             throw new IllegalArgumentException("Disposal method is required");
         }
 
+        // 🔐 Get logged-in user's email from SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        User currentUser = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
         disposal.setAsset(asset);
-        disposal.setCreatedAt(LocalDateTime.now());
+        disposal.setApprovedBy(currentUser); // ✅ FIX: NOT NULL column satisfied
+        // createdAt handled by @PrePersist
 
         return disposalRepository.save(disposal);
     }
+
 
     @Override
     public AssetDisposal approveDisposal(Long disposalId, Long adminId) {
