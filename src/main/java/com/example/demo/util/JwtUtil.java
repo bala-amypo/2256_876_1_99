@@ -15,22 +15,26 @@ import java.util.Set;
 @Component
 public class JwtUtil {
 
-    // Must be >= 32 bytes for HS256
-    private static final String SECRET ="mySecretKeyForJWTTokenGenerationThatIsLongEnough";
+    private static final String SECRET =
+            "mySecretKeyForJWTTokenGenerationThatIsLongEnough";
 
-    private static final long EXPIRATION_TIME = 86_400_000L;
+    private static final long EXPIRATION_TIME = 86_400_000L; // 24 hours
 
     private Key getSigningKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
     }
 
+    // ✅ FIXED: email is now an explicit claim
     public String generateToken(String email, Long userId, Set<String> roles) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(email)                 // subject
+                .claim("email", email)             // ✅ REQUIRED for test
                 .claim("userId", userId)
                 .claim("roles", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
+                .setExpiration(
+                        new Date(System.currentTimeMillis() + EXPIRATION_TIME)
+                )
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -53,7 +57,7 @@ public class JwtUtil {
 
     public String extractEmail(String token) {
         Claims claims = extractClaims(token);
-        return claims != null ? claims.getSubject() : null;
+        return claims != null ? claims.get("email", String.class) : null;
     }
 
     public Long extractUserId(String token) {
