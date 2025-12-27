@@ -54,7 +54,7 @@ public class JwtUtil {
             return null;
         }
     }
-
+    
     public String extractEmail(String token) {
         Claims claims = extractClaims(token);
         return claims != null ? claims.get("email", String.class) : null;
