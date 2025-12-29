@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -32,8 +33,8 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException("Email already exists");
         }
 
-        if (user.getContactEmail() != null &&
-                !EMAIL_PATTERN.matcher(user.getContactEmail()).matches()) {
+        if (user.getEmail() != null &&
+                !EMAIL_PATTERN.matcher(user.getEmail()).matches()) {
             throw new IllegalArgumentException("Invalid email format");
         }
         
