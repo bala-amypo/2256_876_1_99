@@ -24,11 +24,17 @@ public class UserServiceImpl implements UserService {
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
+    private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Z a-z0-9+_.-]+@(.+)$");
 
     @Override
     public User registerUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already exists");
+        }
+
+        if (user.getContactEmail() != null &&
+                !EMAIL_PATTERN.matcher(user.getContactEmail()).matches()) {
+            throw new IllegalArgumentException("Invalid email format");
         }
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
